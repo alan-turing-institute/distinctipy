@@ -125,7 +125,6 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False, pastel_fact
         exclude_colors = [WHITE, BLACK]
 
     colors = exclude_colors.copy()
-    print(colors)
 
     for i in range(n_colors):
         colors.append(distinct_color(colors, pastel_factor=pastel_factor, n_attempts=n_attempts))
@@ -179,7 +178,7 @@ def get_colormap(colors):
     return cmap
 
 
-def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6):
+def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, one_row=False):
     """
     Display the colours defined in a list of colors.
 
@@ -190,7 +189,10 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6):
 
     :return:
     """
-    n_grid = math.ceil(np.sqrt(len(colors)))
+    if one_row:
+        n_grid = len(colors)
+    else:
+        n_grid = math.ceil(np.sqrt(len(colors)))
 
     width = 1
     height = 1

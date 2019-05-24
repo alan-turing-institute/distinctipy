@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import distinctipy
+from distinctipy import distinctipy
 import os
 
 
