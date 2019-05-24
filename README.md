@@ -49,7 +49,7 @@ distinctipy.color_swatch(colors)
 
 More detailed usage and example output can be found in the notebook **[examples.ipynb](examples.ipynb)**.
 
-## References
+## References
 
 *distinctipy* was heavily influenced and inspired by several web sources and
 stack overflow answers. In particular:
