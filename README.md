@@ -1,4 +1,4 @@
-# distinctipy
+![distinctipy logo](https://raw.githubusercontent.com/alan-turing-institute/distinctipy/master/distinctipy_logo.png)
 
 *distinctipy* is a lightweight python package providing functions to generate
 colours that are visually distinct from one another.
