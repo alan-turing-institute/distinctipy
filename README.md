@@ -20,7 +20,7 @@ added to the list being as visually distinct from the pre-existing colours in
 pip3 install distinctipy
 ```
 
-## Usage and Examples
+## Usage and Examples
 
 *distinctipy* can:
 * Generate N visually distinct colours (`distinctipy.get_colors(N)`)
