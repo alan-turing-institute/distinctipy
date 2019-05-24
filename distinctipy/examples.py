@@ -24,8 +24,8 @@ def plot_example(dataset='a3'):
     if dataset not in ('s1', 's2', 's3', 's4', 'a1','a2', 'a3', 'b1'):
         raise ValueError('dataset must be s1, s2, s3, s4, a1, a2, a3 or b1')
 
-    datasets_dir = os.path.dirname(distinctipy.__file__) + '/datasets/'
-    df = pd.read_csv(datasets_dir + dataset + '.csv')
+    URL = "https://raw.githubusercontent.com/alan-turing-institute/distinctipy/master/distinctipy/datasets/"
+    df = pd.read_csv(URL + dataset + '.csv')
 
     colors = distinctipy.get_colors(df['cluster'].nunique(),
                                     exclude_colors=[(1, 1, 1), (0, 0, 0)], return_excluded=False)
