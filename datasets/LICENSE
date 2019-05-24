@@ -1,0 +1,33 @@
+These example clustering datasets are gratefully taken from:
+
+Clustering basic benchmark
+http://cs.joensuu.fi/sipu/datasets/
+
+P. Fränti and S. Sieranoja
+K-means properties on six clustering benchmark datasets
+Applied Intelligence, 48 (12), 4743-4759, December 2018
+https://doi.org/10.1007/s10489-018-1238-7
+
+Machine Learning
+School of Computing
+University of Eastern Finland
+P.O.Box 111
+FIN-80101 Joensuu
+Finland
+
+S-Sets
+P. Fränti and O. Virmajoki,
+"Iterative shrinking method for clustering problems",
+Pattern Recognition, 39 (5), 761-765, May 2006
+
+A-Sets
+I. Kärkkäinen and P. Fränti,
+"Dynamic local search algorithm for the clustering problem",
+Research Report A-2002-6 (pdf)(Bibtex)
+
+Birch-Sets
+Zhang et al.,
+"BIRCH: A new data clustering algorithm and its applications",
+Data Mining and Knowledge Discovery, 1 (2), 141-182, 1997.
+
+
