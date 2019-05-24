@@ -10,8 +10,6 @@ to have many more colours that are clearly different from one another.
 added to the list being as visually distinct from the pre-existing colours in
  the list as possible.
 
- ![36colours](https://raw.githubusercontent.com/alan-turing-institute/distinctipy/master/distinctipy/examples/36colours.png)
-
 ## Installation
 
 *distinctipy* is designed for Python 3 and can be installed with pip by running:
@@ -20,7 +18,7 @@ added to the list being as visually distinct from the pre-existing colours in
 pip3 install distinctipy
 ```
 
-Alternatively clone this repo and then in its parent directory run:
+Alternatively clone the repo and then in its parent directory run:
 ```bash
 pip3 install -r requirements.txt
 pip3 install .
@@ -53,7 +51,7 @@ colors = distinctipy.get_colors(N)
 distinctipy.color_swatch(colors)
 ```
 
-More detailed usage and example output can be found in the notebook **[examples.ipynb](https://github.com/alan-turing-institute/distinctipy/blob/master/examples.ipynb)**.
+More detailed usage and example output can be found in the notebook **[examples.ipynb](https://github.com/alan-turing-institute/distinctipy/blob/master/examples.ipynb)** and **[examples gallery](https://github.com/alan-turing-institute/distinctipy/tree/master/distinctipy/examples)**.
 
 ## References
 
