@@ -15,7 +15,8 @@ added to the list being as visually distinct from the pre-existing colours in
 ## Installation
 
 *distinctipy* is designed for Python 3 and can be installed with pip by running:
-```
+
+```python
 pip3 install distinctipy
 ```
 
