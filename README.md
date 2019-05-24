@@ -20,6 +20,12 @@ added to the list being as visually distinct from the pre-existing colours in
 pip3 install distinctipy
 ```
 
+Alternatively clone this repo and then in its parent directory run:
+```bash
+pip3 install -r requirements.txt
+pip3 install .
+```
+
 ## Usage and Examples
 
 *distinctipy* can:
