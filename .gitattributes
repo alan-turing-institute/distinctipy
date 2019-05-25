@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Make GitHub ignore Jupyter notebooks etc. for tagging purposes
+* linguist-vendored
+*.py linguist-vendored=false
