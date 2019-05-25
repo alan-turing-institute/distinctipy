@@ -28,7 +28,7 @@ pip3 install .
 
 *distinctipy* can:
 * Generate N visually distinct colours: `distinctipy.get_colors(N)`
-* Generate colours that are optimally distinct from a pre-existing list of colours: `distinctipy.get_colors(N, existing_colors)`
+* Generate colours that are distinct from an existing list of colours: `distinctipy.get_colors(N, existing_colors)`
 * Generate pastel colours: `distinctipy.get_colors(N, pastel_factor=0.7)`
 * Select black or white as the best font colour for any background colour: `distinctipy.get_text_color(background_color)`
 * Convert lists of colours into matplotlib colormaps: `distinctipy.get_colormap(colors)`
