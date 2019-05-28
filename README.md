@@ -51,7 +51,7 @@ colors = distinctipy.get_colors(N)
 distinctipy.color_swatch(colors)
 ```
 
-More detailed usage and example output can be found in the notebook **[examples.ipynb](https://github.com/alan-turing-institute/distinctipy/blob/master/examples.ipynb)** and **[examples gallery](https://github.com/alan-turing-institute/distinctipy/tree/master/distinctipy/examples)**.
+More detailed usage and example output can be found in the notebook **[examples.ipynb](https://github.com/alan-turing-institute/distinctipy/blob/master/examples.ipynb)** and **[examples gallery](https://github.com/alan-turing-institute/distinctipy/tree/master/examples)**.
 
 ## References
 
