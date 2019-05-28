@@ -34,7 +34,7 @@ pip3 install .
 * Convert lists of colours into matplotlib colormaps: `distinctipy.get_colormap(colors)`
 * Invert colours: `distinctipy.invert_colors(colors)`
 * Nicely display generated colours: `distinctipy.color_swatch(colors)`
-* Compare distinctipy colours to other common colormaps: `examples.plot_example()`
+* Compare distinctipy colours to other common colormaps: `examples.compare_clusters()` and `examples.compare_colors()`
 
 For example, to create and then display N = 36 visually distinct colours:
 
