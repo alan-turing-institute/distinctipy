@@ -5,18 +5,24 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="distinctipy",
-    version="1.0",
+    version="1.0.1",
     author="Jack Roberts",
     author_email="jroberts@turing.ac.uk",
     description="A lightweight package for generating visually distinct colours.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/alan-turing-institute/distinctipy",
-    packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+        "Development Status :: 4",
+        "Topic :: Multimedia :: Graphics",
+        "Topic :: Scientific/Engineering :: Visualization",
+        "Topic :: Utilities"
     ],
+    keywords="color colour palette colormap",
+    packages=setuptools.find_packages(),
+    install_requires=["matplotlib", "numpy", "pandas"]
 )
 

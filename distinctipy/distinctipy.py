@@ -178,14 +178,18 @@ def get_colormap(colors):
     return cmap
 
 
-def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, one_row=False):
+def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, one_row=False,
+                 ax=None, title=None):
     """
     Display the colours defined in a list of colors.
 
     :param colors: List of (r,g,b) colour tuples to display. (r,g,b) should be floats between 0 and 1.
     :param edgecolors: If None displayed colours have no outline. Otherwise a list of (r,g,b) colours used as an outline.
-    :param show_text: If True write text over each colour in black or white, as appropriate.
+    :param show_text: If True writes the background colour's hex on top of it in black or white, as appropriate.
     :param text_threshold: float between 0 and 1. With threshold close to 1 white text will be chosen more often.
+    :param one_row: bool. If True display all the colors on one row rather than in a grid.
+    :param ax: Matplotlib axis to plot to. If ax is None plt.show() is run in function call.
+    :param title: Add a title to the colour swatch.
 
     :return:
     """
@@ -203,8 +207,12 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, o
     max_x = 0
     max_y = 0
 
-    fig = plt.figure(figsize=(10, 10))
-    ax = fig.add_subplot(111, aspect='equal')
+    if ax is None:
+        show = True
+        fig = plt.figure(figsize=(10, 10))
+        ax = fig.add_subplot(111, aspect='equal')
+    else:
+        show = False
 
     for idx, color in enumerate(colors):
         if edgecolors is None:
@@ -214,8 +222,8 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, o
                                            edgecolor=edgecolors[idx], linewidth=5))
 
         if show_text:
-            ax.text(x+(width/2), y+(height/2), 'TEXT',
-                    fontsize=80/np.sqrt(len(colors)), fontweight='bold', ha='center',
+            ax.text(x+(width/2), y+(height/2), matplotlib.colors.rgb2hex(color),
+                    fontsize=80/np.sqrt(len(colors)), ha='center',
                     color=get_text_color(color, threshold=text_threshold))
 
         if (idx + 1) % n_grid == 0:
@@ -237,9 +245,31 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, o
         if y > max_y:
             max_y = y
 
-    plt.ylim([-height/10, max_y+1.1*height])
-    plt.xlim([-width/10, max_x+1.1*width])
+    ax.set_ylim([-height/10, max_y+1.1*height])
+    ax.set_xlim([-width/10, max_x+1.1*width])
     ax.invert_yaxis()
-    plt.axis('off')
+    ax.axis('off')
 
-    plt.show()
+    if title is not None:
+        ax.set_title(title)
+
+    if show:
+        plt.show()
+
+
+def get_hex(color):
+    """
+    Returns hex of given color
+    :param color: (r,g,b) color tuple. r,g,b are floats between 0 and 1.
+    :return: hex str of color
+    """
+    return matplotlib.colors.rgb2hex(color)
+
+
+def get_rgb256(color):
+    """
+    Converts 0.0-1.0 rgb colour into 0-255 integer rgb colour
+    :param color: (r,g,b) tuple with r,g,b floats between 0.0 and 1.0
+    :return: (r,g,b) ints between 0 and 255
+    """
+    return round(color[0]*255), round(color[1]*255), round(color[2]*255)
