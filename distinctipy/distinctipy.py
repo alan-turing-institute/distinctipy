@@ -6,6 +6,8 @@ import matplotlib.colors
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 
+from distinctipy import colorblind
+
 WHITE = (1.0, 1.0, 1.0)
 BLACK = (0.0, 0.0, 0.0)
 
@@ -31,6 +33,7 @@ def color_distance(c1, c2):
 
     :param c1: (r,g,b) colour tuples. r,g and b are values between 0 and 1.
     :param c2: (r,g,b) colour tuples. r,g and b are values between 0 and 1.
+    :param colorblind_type: generate colours that are distinct with given type of colourblindness
 
     :return: distance: float representing visual distinction between c1 and c2. Larger values = more distinct.
     """
@@ -48,7 +51,7 @@ def color_distance(c1, c2):
     return distance
 
 
-def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000):
+def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_type=None):
     """
     Generate a colour as distinct as possible from the colours defined in exclude_colors.
     Inspired by: https://gist.github.com/adewes/5884820
@@ -56,9 +59,13 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000):
     :param exclude_colors: a list of (r,g,b) tuples. r,g,b are values between 0 and 1.
     :param pastel_factor: float between 0 and 1. If pastel_factor>0 paler colours will be generated.
     :param n_attempts: number of random colours to generate to find most distinct colour
+    :param colorblind_type: generate colours that are distinct with given type of colourblindness
 
     :return: (r,g,b) color tuple of the generated colour with the largest minimum color_distance to the colours in exclude_colors.
     """
+
+    if colorblind_type is not None:
+        exclude_colors = [colorblind.colorblind_filter(color, colorblind_type) for color in exclude_colors]
 
     max_distance = None
     best_color = None
@@ -70,7 +77,12 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000):
             return color
 
         else:
-            distance_to_nearest = min([color_distance(color, c) for c in exclude_colors])
+            if colorblind_type is not None:
+                compare_color = colorblind.colorblind_filter(color, colorblind_type)
+            else:
+                compare_color = color
+
+            distance_to_nearest = min([color_distance(compare_color, c) for c in exclude_colors])
 
             if (not max_distance) or (distance_to_nearest > max_distance):
                 max_distance = distance_to_nearest
@@ -100,7 +112,8 @@ def get_text_color(background_color, threshold=0.6):
     return text_color
 
 
-def get_colors(n_colors, exclude_colors=None, return_excluded=False, pastel_factor=0, n_attempts=1000):
+def get_colors(n_colors, exclude_colors=None, return_excluded=False,
+               pastel_factor=0, n_attempts=1000, colorblind_type=None):
     """
     Generate a list of n visually distinct colours.
 
@@ -117,6 +130,8 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False, pastel_fact
 
     :param n_attempts: number of random colours to generated to find most distinct colour.
 
+    :param colorblind_type: generate colours that are distinct with given type of colourblindness
+
     :return: colors - A list of (r,g,b) colors that are visually distinct to each other and to the colours in exclude_colors.
     (r,g,b) values are floats between 0 and 1.
     """
@@ -127,7 +142,8 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False, pastel_fact
     colors = exclude_colors.copy()
 
     for i in range(n_colors):
-        colors.append(distinct_color(colors, pastel_factor=pastel_factor, n_attempts=n_attempts))
+        colors.append(distinct_color(colors, pastel_factor=pastel_factor,
+                                     n_attempts=n_attempts, colorblind_type=colorblind_type))
 
     if return_excluded:
         return colors
