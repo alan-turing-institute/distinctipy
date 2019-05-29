@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="distinctipy",
-    version="1.0.3",
+    version="1.1.0",
     author="Jack Roberts",
     author_email="jroberts@turing.ac.uk",
     description="A lightweight package for generating visually distinct colours.",
