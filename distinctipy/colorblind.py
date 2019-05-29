@@ -1,5 +1,10 @@
 from distinctipy import distinctipy
+
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+import numpy as np
+import pandas as pd
 
 """
 The Color Blind Simulation function is copyright(c) 2000 - 2001 by Matthew Wickline
@@ -151,19 +156,53 @@ fBlind = {'Normal': lambda v: v,
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-def get_filtered_image(pixels, name):
-    filter_function = fBlind[name]
+def simulate_image(img_path, colorblind_type):
+    """
 
-    n_rows, n_columns, _ = pixels.shape
+    :param img_path:
+
+    :param colorblind_type: Type of colourblindness to simulate, can be:
+        'Normal': Normal vision
+        'Protanopia': Red-green colorblindness (1% males)
+        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        'Deuteranopia': Red-green colorblindness (1% males)
+        'Deuteranomaly': Red-green colorblindness (most common type: 6% males, 0.4% females)
+        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        'Achromatopsia': Total colourblindness
+        'Achromatomaly': Total colourblindness
+
+    :return:
+    """
+    filter_function = fBlind[colorblind_type]
+
+    img = mpimg.imread(img_path)
+    n_rows = img.shape[0]
+    n_columns = img.shape[1]
+
+    filtered_img = np.zeros((n_rows, n_columns, 3))
+
     for r in range(n_rows):
         for c in range(n_columns):
-            pixels[r, c] = filter_function(pixels[r, c])
+            filtered_img[r, c] = filter_function(img[r, c, 0:3])
 
-    return pixels
+    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+
+    axes[0].imshow(img)
+    axes[1].imshow(filtered_img)
+
+    axes[0].axis('off')
+    axes[1].axis('off')
+
+    axes[0].set_title('Normal Vision')
+    axes[1].set_title('With '+colorblind_type)
+
+    plt.show()
 
 
 def colorblind_filter(color, colorblind_type='Deuteranomaly'):
     """
+    Transforms an (r,g,b) colour into a simulation of how a person with colourblindness would see that colour.
 
     :param color: rgb colour tuple to convert
 
@@ -172,7 +211,7 @@ def colorblind_filter(color, colorblind_type='Deuteranomaly'):
         'Protanopia': Red-green colorblindness (1% males)
         'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
         'Deuteranopia': Red-green colorblindness (1% males)
-        'Deuteranomaly': Red-green colorblindness (most common: 6% males, 0.4% females)
+        'Deuteranomaly': Red-green colorblindness (most common type: 6% males, 0.4% females)
         'Tritanopia': Blue-yellow colourblindness (<1% males and females)
         'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
         'Achromatopsia': Total colourblindness
@@ -185,18 +224,103 @@ def colorblind_filter(color, colorblind_type='Deuteranomaly'):
     return filter_function(color)
 
 
-def simulate_colorblind(colors, colorblind_type='Deuteranomaly', one_row=False):
+def simulate_colors(colors, colorblind_type='Deuteranomaly', one_row=None):
+    """
+    Simulate the appearance of colors with and without colourblindness.
+
+    :param colors: A list of (r,g,b) colour tuples, with r, g andb floats between 0 and 1.
+
+    :param colorblind_type: Type of colourblindness to simulate, can be:
+        'Normal': Normal vision
+        'Protanopia': Red-green colorblindness (1% males)
+        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        'Deuteranopia': Red-green colorblindness (1% males)
+        'Deuteranomaly': Red-green colorblindness (most common type: 6% males, 0.4% females)
+        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        'Achromatopsia': Total colourblindness
+        'Achromatomaly': Total colourblindness
+
+    :param one_row: If True display colours on one row, if False as a grid. If one_row=None a grid is used when there
+    are more than 8 colours.
+
+    :return:
+    """
 
     filtered_colors = [colorblind_filter(color, colorblind_type) for color in colors]
 
-    fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+    fig, axes = plt.subplots(1, 2, figsize=(8, 4))
 
-    distinctipy.color_swatch(colors, ax=axes[0], title='Normal Sight', one_row=one_row)
-    distinctipy.color_swatch(filtered_colors, ax=axes[1], title=colorblind_type+' Colour Blindness', one_row=one_row)
+    distinctipy.color_swatch(colors, ax=axes[0], one_row=one_row,
+                             title='Viewed with Normal Sight')
+
+    distinctipy.color_swatch(filtered_colors, ax=axes[1], one_row=one_row,
+                             title='Viewed with '+colorblind_type+' Colour Blindness')
+
+    plt.show()
+
+
+def simulate_clusters(dataset='s2', colorblind_type='Deuteranomaly', colorblind_distinct=False):
+    """
+    Simulates the appearance of an example clustering dataset with and without colourblindness.
+
+    :param dataset: The dataset to display, the options are:
+        * s1, s2, s3, s4: 15 clusters with increasing overlaps from s1 to s4
+        * a1: 20 clusters
+        * a2: 35 clusters
+        * a3: 50 clusters
+        * b1: 100 clusters
+
+    :param colorblind_type: Type of colourblindness to simulate, can be:
+        'Normal': Normal vision
+        'Protanopia': Red-green colorblindness (1% males)
+        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        'Deuteranopia': Red-green colorblindness (1% males)
+        'Deuteranomaly': Red-green colorblindness (most common type: 6% males, 0.4% females)
+        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        'Achromatopsia': Total colourblindness
+        'Achromatomaly': Total colourblindness
+
+    :param colorblind_distinct: If True generate colours to be as distinct as possible for colorblind_type. Else
+    generate colours that are as distinct as possible for normal vision.
+
+    :return:
+    """
+
+    if dataset not in ('s1', 's2', 's3', 's4', 'a1','a2', 'a3', 'b1'):
+        raise ValueError('dataset must be s1, s2, s3, s4, a1, a2, a3 or b1')
+
+    URL = "https://raw.githubusercontent.com/alan-turing-institute/distinctipy/master/distinctipy/datasets/"
+    df = pd.read_csv(URL + dataset + '.csv')
+
+    if colorblind_distinct:
+        orig_colors = distinctipy.get_colors(df['cluster'].nunique(), colorblind_type=colorblind_type)
+    else:
+        orig_colors = distinctipy.get_colors(df['cluster'].nunique())
+
+    orig_cmap = distinctipy.get_colormap(orig_colors)
+
+    filtered_colors = [colorblind_filter(color, colorblind_type) for color in orig_colors]
+    filtered_cmap = distinctipy.get_colormap(filtered_colors)
+
+    fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+    fig.tight_layout(rect=[0, 0.03, 1, 0.95])
+    fig.suptitle(str(df['cluster'].nunique()) + ' clusters', fontsize=20)
+
+    axes[0].scatter(df['x'], df['y'], c=df['cluster'], cmap=orig_cmap, s=6)
+    axes[0].get_xaxis().set_visible(False)
+    axes[0].get_yaxis().set_visible(False)
+    axes[0].set_title('With Normal Vision')
+
+    axes[1].scatter(df['x'], df['y'], c=df['cluster'], cmap=filtered_cmap, s=6)
+    axes[1].get_xaxis().set_visible(False)
+    axes[1].get_yaxis().set_visible(False)
+    axes[1].set_title('With '+colorblind_type+' Colourblindness')
 
     plt.show()
 
 
 if __name__ == '__main__':
     colors = distinctipy.get_colors(36)
-    simulate_colorblind(colors, 'Deuteranomaly')
+    simulate_colors(colors, 'Deuteranomaly')

@@ -1,4 +1,6 @@
-These example clustering datasets are gratefully taken from:
+====================
+CLUSTERING DATASETS
+====================
 
 Clustering basic benchmark
 http://cs.joensuu.fi/sipu/datasets/
@@ -29,5 +31,38 @@ Birch-Sets
 Zhang et al.,
 "BIRCH: A new data clustering algorithm and its applications",
 Data Mining and Knowledge Discovery, 1 (2), 141-182, 1997.
+
+====================
+IMAGES
+====================
+
+balloons.png
+Photo by Lidya Nada on Unsplash
+https://unsplash.com/photos/tXz6g8JYYoI
+
+flower.png: 
+Photo by Sharon Pittaway on Unsplash
+https://unsplash.com/photos/iMdsjoiftZo
+
+flowers.png
+Photo by John-Mark Smith on Unsplash 
+https://unsplash.com/photos/eHlVZcSrjfg
+
+lights.png
+Photo by Felix Dubois-Robert on Unsplash
+https://unsplash.com/photos/CuEvrPd3NYc
+
+powder.png
+Photo by thom masat on Unsplash
+https://unsplash.com/photos/8kLFdQh6scA
+
+umbrellas.png
+Photo by Jean-Philippe Delberghe on Unsplash
+https://unsplash.com/photos/tSXhGzkE7oU
+
+wall.png
+Photo by JFL on Unsplash
+https://unsplash.com/photos/35sVnCCynWA
+
 
 

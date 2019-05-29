@@ -59,7 +59,17 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_
     :param exclude_colors: a list of (r,g,b) tuples. r,g,b are values between 0 and 1.
     :param pastel_factor: float between 0 and 1. If pastel_factor>0 paler colours will be generated.
     :param n_attempts: number of random colours to generate to find most distinct colour
-    :param colorblind_type: generate colours that are distinct with given type of colourblindness
+
+    :param colorblind_type: Type of colourblindness to simulate, can be:
+        'Normal': Normal vision
+        'Protanopia': Red-green colorblindness (1% males)
+        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        'Deuteranopia': Red-green colorblindness (1% males)
+        'Deuteranomaly': Red-green colorblindness (most common type: 6% males, 0.4% females)
+        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        'Achromatopsia': Total colourblindness
+        'Achromatomaly': Total colourblindness
 
     :return: (r,g,b) color tuple of the generated colour with the largest minimum color_distance to the colours in exclude_colors.
     """
@@ -130,7 +140,16 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False,
 
     :param n_attempts: number of random colours to generated to find most distinct colour.
 
-    :param colorblind_type: generate colours that are distinct with given type of colourblindness
+    :param colorblind_type: generate colours that are distinct with given type of colourblindness. Can be:
+        'Normal': Normal vision
+        'Protanopia': Red-green colorblindness (1% males)
+        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        'Deuteranopia': Red-green colorblindness (1% males)
+        'Deuteranomaly': Red-green colorblindness (most common type: 6% males, 0.4% females)
+        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        'Achromatopsia': Total colourblindness
+        'Achromatomaly': Total colourblindness
 
     :return: colors - A list of (r,g,b) colors that are visually distinct to each other and to the colours in exclude_colors.
     (r,g,b) values are floats between 0 and 1.
@@ -194,8 +213,8 @@ def get_colormap(colors):
     return cmap
 
 
-def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, one_row=False,
-                 ax=None, title=None):
+def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6,
+                 ax=None, title=None, one_row=None,):
     """
     Display the colours defined in a list of colors.
 
@@ -203,12 +222,18 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, o
     :param edgecolors: If None displayed colours have no outline. Otherwise a list of (r,g,b) colours used as an outline.
     :param show_text: If True writes the background colour's hex on top of it in black or white, as appropriate.
     :param text_threshold: float between 0 and 1. With threshold close to 1 white text will be chosen more often.
-    :param one_row: bool. If True display all the colors on one row rather than in a grid.
     :param ax: Matplotlib axis to plot to. If ax is None plt.show() is run in function call.
     :param title: Add a title to the colour swatch.
-
+    :param one_row: If True display colours on one row, if False as a grid. If one_row=None a grid is used when there
+    are more than 8 colours.
     :return:
     """
+    if one_row is None:
+        if len(colors) > 8:
+            one_row = False
+        else:
+            one_row = True
+
     if one_row:
         n_grid = len(colors)
     else:
@@ -225,7 +250,7 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, o
 
     if ax is None:
         show = True
-        fig = plt.figure(figsize=(10, 10))
+        fig = plt.figure(figsize=(8, 8))
         ax = fig.add_subplot(111, aspect='equal')
     else:
         show = False
