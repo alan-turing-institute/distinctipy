@@ -35,6 +35,8 @@ pip3 install .
 * Invert colours: `distinctipy.invert_colors(colors)`
 * Nicely display generated colours: `distinctipy.color_swatch(colors)`
 * Compare distinctipy colours to other common colormaps: `examples.compare_clusters()` and `examples.compare_colors()`
+* Simulate how colours look for someone with colourblindness: `colorblind.simulate_colors(colors, colorblind_type='Deuteranomaly')`
+* Attempt to generate colours as distinct as possible for someone with colourblindness `distinctipy.get_colors(N, existing_colors)`
 
 For example, to create and then display N = 36 visually distinct colours:
 
@@ -60,5 +62,6 @@ stack overflow answers. In particular:
 * **Random generation of distinct colours:** [Andrew Dewes on GitHub](https://gist.github.com/adewes/5884820)
 * **Colour distance metric:** [Thiadmer Riemersma at CompuPhase](https://www.compuphase.com/cmetric.htm)
 * **Best text colour for background:** [Mark Ransom on Stack Overflow](https://stackoverflow.com/a/3943023)
+* **Colourblindness Filters:** [Matthew Wickline and the Human-Computer Interaction Resource Network](http://web.archive.org/web/20090318054431/http://www.nofunc.com/Color_Blindness_Library) (web archive)
 
 Thanks!

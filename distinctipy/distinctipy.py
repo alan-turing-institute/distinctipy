@@ -6,6 +6,8 @@ import matplotlib.colors
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 
+from distinctipy import colorblind
+
 WHITE = (1.0, 1.0, 1.0)
 BLACK = (0.0, 0.0, 0.0)
 
@@ -31,6 +33,7 @@ def color_distance(c1, c2):
 
     :param c1: (r,g,b) colour tuples. r,g and b are values between 0 and 1.
     :param c2: (r,g,b) colour tuples. r,g and b are values between 0 and 1.
+    :param colorblind_type: generate colours that are distinct with given type of colourblindness
 
     :return: distance: float representing visual distinction between c1 and c2. Larger values = more distinct.
     """
@@ -48,7 +51,7 @@ def color_distance(c1, c2):
     return distance
 
 
-def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000):
+def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_type=None):
     """
     Generate a colour as distinct as possible from the colours defined in exclude_colors.
     Inspired by: https://gist.github.com/adewes/5884820
@@ -57,8 +60,22 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000):
     :param pastel_factor: float between 0 and 1. If pastel_factor>0 paler colours will be generated.
     :param n_attempts: number of random colours to generate to find most distinct colour
 
+    :param colorblind_type: Type of colourblindness to simulate, can be:
+        'Normal': Normal vision
+        'Protanopia': Red-green colorblindness (1% males)
+        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        'Deuteranopia': Red-green colorblindness (1% males)
+        'Deuteranomaly': Red-green colorblindness (most common type: 6% males, 0.4% females)
+        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        'Achromatopsia': Total colourblindness
+        'Achromatomaly': Total colourblindness
+
     :return: (r,g,b) color tuple of the generated colour with the largest minimum color_distance to the colours in exclude_colors.
     """
+
+    if colorblind_type is not None:
+        exclude_colors = [colorblind.colorblind_filter(color, colorblind_type) for color in exclude_colors]
 
     max_distance = None
     best_color = None
@@ -70,7 +87,12 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000):
             return color
 
         else:
-            distance_to_nearest = min([color_distance(color, c) for c in exclude_colors])
+            if colorblind_type is not None:
+                compare_color = colorblind.colorblind_filter(color, colorblind_type)
+            else:
+                compare_color = color
+
+            distance_to_nearest = min([color_distance(compare_color, c) for c in exclude_colors])
 
             if (not max_distance) or (distance_to_nearest > max_distance):
                 max_distance = distance_to_nearest
@@ -100,7 +122,8 @@ def get_text_color(background_color, threshold=0.6):
     return text_color
 
 
-def get_colors(n_colors, exclude_colors=None, return_excluded=False, pastel_factor=0, n_attempts=1000):
+def get_colors(n_colors, exclude_colors=None, return_excluded=False,
+               pastel_factor=0, n_attempts=1000, colorblind_type=None):
     """
     Generate a list of n visually distinct colours.
 
@@ -117,6 +140,17 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False, pastel_fact
 
     :param n_attempts: number of random colours to generated to find most distinct colour.
 
+    :param colorblind_type: generate colours that are distinct with given type of colourblindness. Can be:
+        'Normal': Normal vision
+        'Protanopia': Red-green colorblindness (1% males)
+        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        'Deuteranopia': Red-green colorblindness (1% males)
+        'Deuteranomaly': Red-green colorblindness (most common type: 6% males, 0.4% females)
+        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        'Achromatopsia': Total colourblindness
+        'Achromatomaly': Total colourblindness
+
     :return: colors - A list of (r,g,b) colors that are visually distinct to each other and to the colours in exclude_colors.
     (r,g,b) values are floats between 0 and 1.
     """
@@ -127,7 +161,8 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False, pastel_fact
     colors = exclude_colors.copy()
 
     for i in range(n_colors):
-        colors.append(distinct_color(colors, pastel_factor=pastel_factor, n_attempts=n_attempts))
+        colors.append(distinct_color(colors, pastel_factor=pastel_factor,
+                                     n_attempts=n_attempts, colorblind_type=colorblind_type))
 
     if return_excluded:
         return colors
@@ -178,8 +213,8 @@ def get_colormap(colors):
     return cmap
 
 
-def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, one_row=False,
-                 ax=None, title=None):
+def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6,
+                 ax=None, title=None, one_row=None,):
     """
     Display the colours defined in a list of colors.
 
@@ -187,12 +222,18 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, o
     :param edgecolors: If None displayed colours have no outline. Otherwise a list of (r,g,b) colours used as an outline.
     :param show_text: If True writes the background colour's hex on top of it in black or white, as appropriate.
     :param text_threshold: float between 0 and 1. With threshold close to 1 white text will be chosen more often.
-    :param one_row: bool. If True display all the colors on one row rather than in a grid.
     :param ax: Matplotlib axis to plot to. If ax is None plt.show() is run in function call.
     :param title: Add a title to the colour swatch.
-
+    :param one_row: If True display colours on one row, if False as a grid. If one_row=None a grid is used when there
+    are more than 8 colours.
     :return:
     """
+    if one_row is None:
+        if len(colors) > 8:
+            one_row = False
+        else:
+            one_row = True
+
     if one_row:
         n_grid = len(colors)
     else:
@@ -209,7 +250,7 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6, o
 
     if ax is None:
         show = True
-        fig = plt.figure(figsize=(10, 10))
+        fig = plt.figure(figsize=(8, 8))
         ax = fig.add_subplot(111, aspect='equal')
     else:
         show = False

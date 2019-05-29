@@ -74,7 +74,6 @@ def compare_colors(N=36, compare_with='tab20'):
         colors_compare = [cmap(i) for i in np.linspace(0, 1, N)]
 
     fig, axes = plt.subplots(1, 2, figsize=(10, 5))
-    fig.tight_layout()
 
     distinctipy.color_swatch(colors_distinctipy, ax=axes[0], title='distinctipy')
     distinctipy.color_swatch(colors_compare, ax=axes[1], title=compare_with)
