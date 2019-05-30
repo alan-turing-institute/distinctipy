@@ -20,7 +20,7 @@ setuptools.setup(
         "Topic :: Scientific/Engineering :: Visualization",
         "Topic :: Utilities"
     ],
-    keywords="color colour palette colormap",
+    keywords="color colour palette colormap colorblind colourblind",
     packages=setuptools.find_packages(),
     install_requires=["matplotlib", "numpy", "pandas"]
 )
