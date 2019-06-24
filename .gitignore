@@ -113,4 +113,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Mac OS
 .DS_STORE
+
+# PyCharm
+.idea/*
+
+# Temporary files
+tmp*
