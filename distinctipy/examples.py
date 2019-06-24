@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm
 import matplotlib.colors
 
-from distinctipy import distinctipy
+from . import distinctipy
 
 
 def compare_clusters(dataset='a3', compare_with='tab20'):

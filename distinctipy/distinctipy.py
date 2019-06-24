@@ -6,7 +6,7 @@ import matplotlib.colors
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 
-from distinctipy import colorblind
+from . import colorblind
 
 WHITE = (1.0, 1.0, 1.0)
 BLACK = (0.0, 0.0, 0.0)
@@ -33,7 +33,6 @@ def color_distance(c1, c2):
 
     :param c1: (r,g,b) colour tuples. r,g and b are values between 0 and 1.
     :param c2: (r,g,b) colour tuples. r,g and b are values between 0 and 1.
-    :param colorblind_type: generate colours that are distinct with given type of colourblindness
 
     :return: distance: float representing visual distinction between c1 and c2. Larger values = more distinct.
     """
@@ -71,7 +70,8 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_
         'Achromatopsia': Total colourblindness
         'Achromatomaly': Total colourblindness
 
-    :return: (r,g,b) color tuple of the generated colour with the largest minimum color_distance to the colours in exclude_colors.
+    :return: (r,g,b) color tuple of the generated colour with the largest minimum color_distance
+     to the colours in exclude_colors.
     """
 
     if colorblind_type is not None:
@@ -119,8 +119,6 @@ def get_text_color(background_color, threshold=0.6):
     else:
         return WHITE
 
-    return text_color
-
 
 def get_colors(n_colors, exclude_colors=None, return_excluded=False,
                pastel_factor=0, n_attempts=1000, colorblind_type=None):
@@ -130,7 +128,8 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False,
     :param n_colors: How many colours to generate
 
     :param exclude_colors: A pre-existing list of (r,g,b) colours that new colours should be distinct from.
-    If exclude_colours=None then exclude_colours will be set to avoid white and black (exclude_colours=[(0,0,0), (1,1,1)]).
+    If exclude_colours=None then exclude_colours will be set to avoid white and black
+    (exclude_colours=[(0,0,0), (1,1,1)]).
     (r,g,b) values should be floats between 0 and 1.
 
     :param return_excluded: If return_excluded=True then exclude_colors will be included in the returned color list.
@@ -151,8 +150,8 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False,
         'Achromatopsia': Total colourblindness
         'Achromatomaly': Total colourblindness
 
-    :return: colors - A list of (r,g,b) colors that are visually distinct to each other and to the colours in exclude_colors.
-    (r,g,b) values are floats between 0 and 1.
+    :return: colors - A list of (r,g,b) colors that are visually distinct to each other
+     and to the colours in exclude_colors. (r,g,b) values are floats between 0 and 1.
     """
 
     if exclude_colors is None:
@@ -170,47 +169,23 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False,
         return colors[len(exclude_colors):]
 
 
-def invert_colors(colors, exclude_black=False, exclude_white=False, pastel_factor=0, n_attempts=1000):
+def invert_colors(colors):
     """
-    Generates inverted colours for each colour in the given colour list, i.e. colours that are as distinct as possible
-     from each colour in the list.
+    Generates inverted colours for each colour in the given colour list, using a simple inversion of each colour
+    to the opposite corner on the r,g,b cube.
 
-    :param colors: A list of (r,g,b) colour tuples. (r,g,b) values should be floats between 0 and 1.
-    :param exclude_black: If True, don't generate black as an inverted colour.
-    :param exclude_white: If True, don't generate white as an inverted colour.
-    :param pastel_factor:  float between 0 and 1. If pastel_factor>0 paler colours will be generated.
-    :param n_attempts: number of random colours to generated to find most distinct colour.
-
-    :return: inverted_colors - A list of (r,g,b) colors that are visually distinct to each other and to the colours in exclude_colors.
-    (r,g,b) values are floats between 0 and 1.
+    :return: inverted_colors - A list of inverted (r,g,b) (r,g,b) values are floats between 0 and 1.
     """
     inverted_colors = []
 
     for color in colors:
-        color = [color]
+        r = 0 if color[0] > 0.5 else 1
+        g = 0 if color[1] > 0.5 else 1
+        b = 0 if color[2] > 0.5 else 1
 
-        if exclude_black:
-            color.append(BLACK)
-
-        if exclude_white:
-            color.append(WHITE)
-
-        inverted_colors.append(distinct_color(color, pastel_factor=pastel_factor, n_attempts=n_attempts))
+        inverted_colors.append((r, g, b))
 
     return inverted_colors
-
-
-def get_colormap(colors):
-    """
-    Converts a list of colors into a matplotlib colormap.
-
-    :param colors: a list of (r,g,b) color tuples. (r,g,b) values should be floats between 0 and 1.
-
-    :return: cmap: a matplotlib colormap.
-    """
-    cmap = matplotlib.colors.ListedColormap(colors)
-
-    return cmap
 
 
 def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6,
@@ -219,13 +194,21 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6,
     Display the colours defined in a list of colors.
 
     :param colors: List of (r,g,b) colour tuples to display. (r,g,b) should be floats between 0 and 1.
-    :param edgecolors: If None displayed colours have no outline. Otherwise a list of (r,g,b) colours used as an outline.
+
+    :param edgecolors: If None displayed colours have no outline.
+    Otherwise a list of (r,g,b) colours to use as outlines for each colour.
+
     :param show_text: If True writes the background colour's hex on top of it in black or white, as appropriate.
+
     :param text_threshold: float between 0 and 1. With threshold close to 1 white text will be chosen more often.
+
     :param ax: Matplotlib axis to plot to. If ax is None plt.show() is run in function call.
+
     :param title: Add a title to the colour swatch.
+
     :param one_row: If True display colours on one row, if False as a grid. If one_row=None a grid is used when there
     are more than 8 colours.
+
     :return:
     """
     if one_row is None:
@@ -264,7 +247,7 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6,
 
         if show_text:
             ax.text(x+(width/2), y+(height/2), matplotlib.colors.rgb2hex(color),
-                    fontsize=80/np.sqrt(len(colors)), ha='center',
+                    fontsize=60/np.sqrt(len(colors)), ha='center',
                     color=get_text_color(color, threshold=text_threshold))
 
         if (idx + 1) % n_grid == 0:
@@ -314,3 +297,18 @@ def get_rgb256(color):
     :return: (r,g,b) ints between 0 and 255
     """
     return round(color[0]*255), round(color[1]*255), round(color[2]*255)
+
+
+def get_colormap(list_of_colors, name='distinctipy'):
+    """
+    Converts a list of colors into a matplotlib colormap.
+
+    :param list_of_colors: a list of (r,g,b) color tuples. (r,g,b) values should be floats between 0 and 1.
+
+    :param name: name of the generated colormap
+
+    :return: cmap: a matplotlib colormap.
+    """
+    cmap = matplotlib.colors.ListedColormap(list_of_colors, name=name)
+
+    return cmap
