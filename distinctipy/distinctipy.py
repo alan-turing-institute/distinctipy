@@ -8,8 +8,29 @@ import matplotlib.pyplot as plt
 
 from . import colorblind
 
-WHITE = (1.0, 1.0, 1.0)
-BLACK = (0.0, 0.0, 0.0)
+# pre-define interesting colours/points at corners, edges, faces and interior of r,g,b cube
+WHITE = (1, 1, 1)
+BLACK = (0, 0, 0)
+RED = (1, 0, 0)
+GREEN = (0, 1, 0)
+BLUE = (0, 0, 1)
+CYAN = (0, 1, 1)
+YELLOW = (1, 1, 0)
+MAGENTA = (1, 0, 1)
+
+CORNERS = [WHITE, BLACK, RED, GREEN, BLUE, CYAN, YELLOW, MAGENTA]
+
+MID_FACE = [(0, 0.5, 0), (0, 0, 0.5), (0, 1, 0.5), (0, 0.5, 1), (0, 0.5, 0.5),
+            (0.5, 0, 0), (0.5, 0.5, 0), (0.5, 1, 0), (0.5, 0, 0.5),
+            (0.5, 0, 1), (0.5, 1, 0.5), (0.5, 1, 1), (0.5, 0.5, 1),
+            (1, 0.5, 0), (1, 0, 0.5), (1, 0.5, 0.5), (1, 1, 0.5), (1, 0.5, 1)]
+
+INTERIOR = [(0.5, 0.5, 0.5),
+            (0.75, 0.5, 0.5), (0.25, 0.5, 0.5),
+            (0.5, 0.75, 0.5), (0.5, 0.25, 0.5),
+            (0.5, 0.5, 0.75), (0.5, 0.5, 0.25)]
+
+POINTS_OF_INTEREST = CORNERS + MID_FACE + INTERIOR
 
 
 def get_random_color(pastel_factor=0):
@@ -74,12 +95,30 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_
      to the colours in exclude_colors.
     """
 
-    if colorblind_type is not None:
+    if not exclude_colors:
+        return get_random_color(pastel_factor=pastel_factor)
+
+    if colorblind_type:
         exclude_colors = [colorblind.colorblind_filter(color, colorblind_type) for color in exclude_colors]
 
     max_distance = None
     best_color = None
 
+    # try pre-defined corners, edges, interior points first
+    for color in POINTS_OF_INTEREST:
+        if color not in exclude_colors:
+            if colorblind_type:
+                compare_color = colorblind.colorblind_filter(color, colorblind_type)
+            else:
+                compare_color = color
+
+            distance_to_nearest = min([color_distance(compare_color, c) for c in exclude_colors])
+
+            if (not max_distance) or (distance_to_nearest > max_distance):
+                max_distance = distance_to_nearest
+                best_color = color
+
+    # try n_attempts randomly generated colours
     for _ in range(n_attempts):
         color = get_random_color(pastel_factor=pastel_factor)
 
@@ -87,7 +126,7 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_
             return color
 
         else:
-            if colorblind_type is not None:
+            if colorblind_type:
                 compare_color = colorblind.colorblind_filter(color, colorblind_type)
             else:
                 compare_color = color
