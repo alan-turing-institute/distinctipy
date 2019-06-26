@@ -446,7 +446,7 @@ def get_colors(name='normal'):
     name = __process_name(name)
     assert name in list_colorsets(), 'name should exist in ' + str(list_colorsets())
 
-    return distinctipy.get_colormap(colors[name], name='distinctipy_' + name)
+    return colors[name]
 
 
 def set_palette(name='normal'):

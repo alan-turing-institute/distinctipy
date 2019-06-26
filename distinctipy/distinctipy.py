@@ -105,18 +105,19 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_
     best_color = None
 
     # try pre-defined corners, edges, interior points first
-    for color in POINTS_OF_INTEREST:
-        if color not in exclude_colors:
-            if colorblind_type:
-                compare_color = colorblind.colorblind_filter(color, colorblind_type)
-            else:
-                compare_color = color
+    if pastel_factor == 0:
+        for color in POINTS_OF_INTEREST:
+            if color not in exclude_colors:
+                if colorblind_type:
+                    compare_color = colorblind.colorblind_filter(color, colorblind_type)
+                else:
+                    compare_color = color
 
-            distance_to_nearest = min([color_distance(compare_color, c) for c in exclude_colors])
+                distance_to_nearest = min([color_distance(compare_color, c) for c in exclude_colors])
 
-            if (not max_distance) or (distance_to_nearest > max_distance):
-                max_distance = distance_to_nearest
-                best_color = color
+                if (not max_distance) or (distance_to_nearest > max_distance):
+                    max_distance = distance_to_nearest
+                    best_color = color
 
     # try n_attempts randomly generated colours
     for _ in range(n_attempts):
