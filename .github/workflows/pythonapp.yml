@@ -1,4 +1,4 @@
-name: Run flake8 and pytest
+name: Tests
 
 on: [push]
 
