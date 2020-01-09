@@ -1,4 +1,4 @@
-![](https://github.com/alan-turing-institute/distinctipy/workflows/.github/workflows/pythonapp.yml/badge.svg)
+![](https://github.com/alan-turing-institute/distinctipy/workflows/Run%20flake8%20and%20pytest/pythonapp.yml/badge.svg)
 
 ![distinctipy logo](https://raw.githubusercontent.com/alan-turing-institute/distinctipy/master/distinctipy_logo.png)
 
