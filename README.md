@@ -1,3 +1,5 @@
+![](https://github.com/alan-turing-institute/distinctipy/workflows/.github/workflows/pythonapp.yml/badge.svg)
+
 ![distinctipy logo](https://raw.githubusercontent.com/alan-turing-institute/distinctipy/master/distinctipy_logo.png)
 
 *distinctipy* is a lightweight python package providing functions to generate
