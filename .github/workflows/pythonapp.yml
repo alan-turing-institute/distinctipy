@@ -1,4 +1,4 @@
-name: Lint and run tests
+name: Run flake8 and pytest
 
 on: [push]
 
@@ -16,7 +16,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install .
     - name: Lint with flake8
       run: |
         pip install flake8
