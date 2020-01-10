@@ -1,6 +1,13 @@
 name: Tests
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'distinctipy/**'
+    - 'tests/**'
+    - 'requirements.txt'
+    - 'setup.py'
+    - '.github/workflows/pythonapp.yml'
 
 jobs:
   build:
