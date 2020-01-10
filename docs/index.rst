@@ -6,7 +6,7 @@
 Welcome to distinctipy's documentation!
 =======================================
 
-This page is a work in progress, for more details have a look at the repo on `GitHub
+This page is a work in progress, for more details about distinctipy have a look at the repo on `GitHub
 <https://github.com/alan-turing-institute/distinctipy>`_.
 
 .. toctree::
