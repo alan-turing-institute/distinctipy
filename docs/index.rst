@@ -11,9 +11,9 @@ distinctipy is a lightweight python package providing functions to generate colo
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   
-   about
 
+   about
+   docs
 
 
 Indices and tables
