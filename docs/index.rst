@@ -15,6 +15,7 @@ This page is a work in progress, for more details about distinctipy have a look 
 
    about
    docs
+   usage.ipynb
 
 
 Indices and tables
