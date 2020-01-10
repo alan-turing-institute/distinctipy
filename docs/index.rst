@@ -6,7 +6,8 @@
 Welcome to distinctipy's documentation!
 =======================================
 
-distinctipy is a lightweight python package providing functions to generate colours that are visually distinct from one another.
+This page is a work in progress, for more details have a look at the repo on `GitHub
+<https://github.com/alan-turing-institute/distinctipy>`_.
 
 .. toctree::
    :maxdepth: 2
