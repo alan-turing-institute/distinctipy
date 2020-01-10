@@ -26,6 +26,7 @@ jobs:
         pip install .
         cat /proc/cpuinfo
         cat /proc/meminfo
+        df -Th
     - name: Lint with flake8
       run: |
         pip install flake8
