@@ -39,7 +39,7 @@ pip3 install .
 * Nicely display generated colours: `distinctipy.color_swatch(colors)`
 * Compare distinctipy colours to other common colormaps: `examples.compare_clusters()` and `examples.compare_colors()`
 * Simulate how colours look for someone with colourblindness: `colorblind.simulate_colors(colors, colorblind_type='Deuteranomaly')`
-* Attempt to generate colours as distinct as possible for someone with colourblindness `distinctipy.get_colors(N, existing_colors)`
+* Attempt to generate colours as distinct as possible for someone with colourblindness `distinctipy.get_colors(N, existing_colors, colorblind_type="Deuteranomaly")`
 
 For example, to create and then display N = 36 visually distinct colours:
 
