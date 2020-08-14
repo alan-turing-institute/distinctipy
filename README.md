@@ -12,6 +12,7 @@ added to the list being as visually distinct from the pre-existing colours in
 
 ![tests](https://github.com/alan-turing-institute/distinctipy/workflows/Tests/badge.svg)
 ![build](https://github.com/alan-turing-institute/distinctipy/workflows/Build/badge.svg)
+[![DOI](https://zenodo.org/badge/188444660.svg)](https://zenodo.org/badge/latestdoi/188444660)
 
 ## Installation
 
