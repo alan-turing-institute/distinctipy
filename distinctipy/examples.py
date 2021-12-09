@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-import matplotlib.pyplot as plt
 import matplotlib.cm
 import matplotlib.colors
 
@@ -27,6 +26,7 @@ def compare_clusters(dataset='a3', compare_with='tab20'):
 
     :return:
     """
+    import matplotlib.pyplot as plt
 
     if dataset not in ('s1', 's2', 's3', 's4', 'a1','a2', 'a3', 'b1'):
         raise ValueError('dataset must be s1, s2, s3, s4, a1, a2, a3 or b1')
@@ -63,6 +63,7 @@ def compare_colors(N=36, compare_with='tab20'):
     :param compare_with: str representing name of a built-in matplotlib colormap
     :return:
     """
+    import matplotlib.pyplot as plt
 
     colors_distinctipy = distinctipy.get_colors(N, exclude_colors=[(1, 1, 1), (0, 0, 0)], return_excluded=False)
 

@@ -4,7 +4,6 @@ import numpy as np
 
 import matplotlib.colors
 import matplotlib.patches as patches
-import matplotlib.pyplot as plt
 
 from . import colorblind
 
@@ -251,6 +250,7 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6,
 
     :return:
     """
+    import matplotlib.pyplot as plt
     if one_row is None:
         if len(colors) > 8:
             one_row = False
