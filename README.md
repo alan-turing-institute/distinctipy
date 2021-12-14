@@ -2,6 +2,7 @@
 
 ![tests](https://github.com/alan-turing-institute/distinctipy/workflows/Tests/badge.svg)
 ![build](https://github.com/alan-turing-institute/distinctipy/workflows/Build/badge.svg)
+[![DOI](https://zenodo.org/badge/188444660.svg)](https://zenodo.org/badge/latestdoi/188444660)
 [![Documentation Status](https://readthedocs.org/projects/distinctipy/badge/?version=latest)](https://distinctipy.readthedocs.io/en/latest/?badge=latest)
 
 *distinctipy* is a lightweight python package providing functions to generate
@@ -40,7 +41,7 @@ pip3 install .
 * Nicely display generated colours: `distinctipy.color_swatch(colors)`
 * Compare distinctipy colours to other common colormaps: `examples.compare_clusters()` and `examples.compare_colors()`
 * Simulate how colours look for someone with colourblindness: `colorblind.simulate_colors(colors, colorblind_type='Deuteranomaly')`
-* Attempt to generate colours as distinct as possible for someone with colourblindness `distinctipy.get_colors(N, existing_colors)`
+* Attempt to generate colours as distinct as possible for someone with colourblindness `distinctipy.get_colors(N, existing_colors, colorblind_type="Deuteranomaly")`
 
 For example, to create and then display N = 36 visually distinct colours:
 
