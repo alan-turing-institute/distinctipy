@@ -4,26 +4,26 @@ import numpy as np
 
 import matplotlib.colors
 import matplotlib.patches as patches
-import matplotlib.pyplot as plt
 
 from . import colorblind
 
 # pre-define interesting colours/points at corners, edges, faces and interior of r,g,b cube
-WHITE = (1, 1, 1)
-BLACK = (0, 0, 0)
-RED = (1, 0, 0)
-GREEN = (0, 1, 0)
-BLUE = (0, 0, 1)
-CYAN = (0, 1, 1)
-YELLOW = (1, 1, 0)
-MAGENTA = (1, 0, 1)
+WHITE = (1., 1., 1.)
+BLACK = (0., 0., 0.)
+RED = (1., 0., 0.)
+GREEN = (0., 1., 0.)
+BLUE = (0., 0., 1.)
+CYAN = (0., 1., 1.)
+YELLOW = (1., 1., 0.)
+MAGENTA = (1., 0., 1.)
 
 CORNERS = [WHITE, BLACK, RED, GREEN, BLUE, CYAN, YELLOW, MAGENTA]
 
-MID_FACE = [(0, 0.5, 0), (0, 0, 0.5), (0, 1, 0.5), (0, 0.5, 1), (0, 0.5, 0.5),
-            (0.5, 0, 0), (0.5, 0.5, 0), (0.5, 1, 0), (0.5, 0, 0.5),
-            (0.5, 0, 1), (0.5, 1, 0.5), (0.5, 1, 1), (0.5, 0.5, 1),
-            (1, 0.5, 0), (1, 0, 0.5), (1, 0.5, 0.5), (1, 1, 0.5), (1, 0.5, 1)]
+MID_FACE = [(0.0, 0.5, 0.0), (0.0, 0.0, 0.5), (0.0, 1.0, 0.5), (0.0, 0.5, 1.0),
+            (0.0, 0.5, 0.5), (0.5, 0.0, 0.0), (0.5, 0.5, 0.0), (0.5, 1.0, 0.0),
+            (0.5, 0.0, 0.5), (0.5, 0.0, 1.0), (0.5, 1.0, 0.5), (0.5, 1.0, 1.0),
+            (0.5, 0.5, 1.0), (1.0, 0.5, 0.0), (1.0, 0.0, 0.5), (1.0, 0.5, 0.5),
+            (1.0, 1.0, 0.5), (1.0, 0.5, 1.0)]
 
 INTERIOR = [(0.5, 0.5, 0.5),
             (0.75, 0.5, 0.5), (0.25, 0.5, 0.5),
@@ -33,16 +33,48 @@ INTERIOR = [(0.5, 0.5, 0.5),
 POINTS_OF_INTEREST = CORNERS + MID_FACE + INTERIOR
 
 
-def get_random_color(pastel_factor=0):
+_SEED_MAX = int(2 ** 32 - 1)
+
+
+def _ensure_rng(rng):
+    """
+    Returns a random.Random state based on the input
+    """
+    if rng is None:
+        rng = random._inst
+    elif isinstance(rng, int):
+        rng = random.Random(int(rng) % _SEED_MAX)
+    elif isinstance(rng, float):
+        rng = float(rng)
+        # Coerce the float into an integer
+        a, b = rng.as_integer_ratio()
+        if b == 1:
+            seed = a
+        else:
+            s = max(a.bit_length(), b.bit_length())
+            seed = (b << s) | a
+        rng = random.Random(seed % _SEED_MAX)
+    elif isinstance(rng, random.Random):
+        rng = rng
+    else:
+        raise TypeError(type(rng))
+    return rng
+
+
+def get_random_color(pastel_factor=0, rng=None):
     """
     Generate a random rgb colour.
 
     :param pastel_factor: float between 0 and 1. If pastel_factor>0 paler colours will be generated.
 
+    :param rng: A random integer seed or random.Random state.
+        If unspecified the global random is used.
+
     :return: color: a (r,g,b) tuple. r, g and b are values between 0 and 1.
     """
+    rng = _ensure_rng(rng)
 
-    color = [(random.random() + pastel_factor) / (1.0 + pastel_factor) for _ in range(3)]
+    color = [(rng.random() + pastel_factor) / (1.0 + pastel_factor) for _ in range(3)]
 
     return tuple(color)
 
@@ -71,7 +103,8 @@ def color_distance(c1, c2):
     return distance
 
 
-def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_type=None):
+def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000,
+                   colorblind_type=None, rng=None):
     """
     Generate a colour as distinct as possible from the colours defined in exclude_colors.
     Inspired by: https://gist.github.com/adewes/5884820
@@ -91,12 +124,16 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_
         'Achromatopsia': Total colourblindness
         'Achromatomaly': Total colourblindness
 
+    :param rng: A random integer seed or random.Random state.
+        If unspecified the global random is used.
+
     :return: (r,g,b) color tuple of the generated colour with the largest minimum color_distance
      to the colours in exclude_colors.
     """
+    rng = _ensure_rng(rng)
 
     if not exclude_colors:
-        return get_random_color(pastel_factor=pastel_factor)
+        return get_random_color(pastel_factor=pastel_factor, rng=rng)
 
     if colorblind_type:
         exclude_colors = [colorblind.colorblind_filter(color, colorblind_type) for color in exclude_colors]
@@ -121,7 +158,7 @@ def distinct_color(exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_
 
     # try n_attempts randomly generated colours
     for _ in range(n_attempts):
-        color = get_random_color(pastel_factor=pastel_factor)
+        color = get_random_color(pastel_factor=pastel_factor, rng=rng)
 
         if not exclude_colors:
             return color
@@ -161,7 +198,8 @@ def get_text_color(background_color, threshold=0.6):
 
 
 def get_colors(n_colors, exclude_colors=None, return_excluded=False,
-               pastel_factor=0, n_attempts=1000, colorblind_type=None):
+               pastel_factor=0, n_attempts=1000, colorblind_type=None,
+               rng=None):
     """
     Generate a list of n visually distinct colours.
 
@@ -190,9 +228,13 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False,
         'Achromatopsia': Total colourblindness
         'Achromatomaly': Total colourblindness
 
+    :param rng: A random integer seed or random.Random state.
+        If unspecified the global random is used.
+
     :return: colors - A list of (r,g,b) colors that are visually distinct to each other
      and to the colours in exclude_colors. (r,g,b) values are floats between 0 and 1.
     """
+    rng = _ensure_rng(rng)
 
     if exclude_colors is None:
         exclude_colors = [WHITE, BLACK]
@@ -201,7 +243,8 @@ def get_colors(n_colors, exclude_colors=None, return_excluded=False,
 
     for i in range(n_colors):
         colors.append(distinct_color(colors, pastel_factor=pastel_factor,
-                                     n_attempts=n_attempts, colorblind_type=colorblind_type))
+                                     n_attempts=n_attempts,
+                                     colorblind_type=colorblind_type, rng=rng))
 
     if return_excluded:
         return colors
@@ -219,9 +262,9 @@ def invert_colors(colors):
     inverted_colors = []
 
     for color in colors:
-        r = 0 if color[0] > 0.5 else 1
-        g = 0 if color[1] > 0.5 else 1
-        b = 0 if color[2] > 0.5 else 1
+        r = 0.0 if color[0] > 0.5 else 1.0
+        g = 0.0 if color[1] > 0.5 else 1.0
+        b = 0.0 if color[2] > 0.5 else 1.0
 
         inverted_colors.append((r, g, b))
 
@@ -251,6 +294,7 @@ def color_swatch(colors, edgecolors=None, show_text=False, text_threshold=0.6,
 
     :return:
     """
+    import matplotlib.pyplot as plt
     if one_row is None:
         if len(colors) > 8:
             one_row = False

@@ -38,3 +38,36 @@ def test_color_distance():
 def test_text_color():
     """Assert suggested text colour for black background is white."""
     assert distinctipy.get_text_color((0, 0, 0)) == (1, 1, 1)
+
+
+def test_rng():
+    """Assert same colours returned if rng state give, and not if it's not given"""
+    assert distinctipy.get_colors(10, rng=123) == distinctipy.get_colors(10, rng=123)
+    assert distinctipy.get_colors(10) != distinctipy.get_colors(10)
+
+
+def test_colors_are_floats():
+    """ Check that random colors dont contain integers """
+    colors1 = distinctipy.get_colors(10)
+    colors2 = distinctipy.get_colors(10, exclude_colors=colors1)
+    for color in colors1 + colors2:
+        r, g, b = color
+        assert isinstance(r, float)
+        assert isinstance(g, float)
+        assert isinstance(b, float)
+
+
+def test_constants_are_floats():
+    """ Check that known color constants dont have integers in them """
+    from distinctipy import colorsets
+    def _assert_colors_are_floats(colors):
+        for color in colors:
+            r, g, b = color
+            assert isinstance(r, float)
+            assert isinstance(g, float)
+            assert isinstance(b, float)
+    for name in colorsets.list_colorsets():
+        colors = colorsets.get_colors(name)
+        _assert_colors_are_floats(colors)
+    _assert_colors_are_floats(distinctipy.CORNERS)
+    _assert_colors_are_floats(distinctipy.POINTS_OF_INTEREST)
