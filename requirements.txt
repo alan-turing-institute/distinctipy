@@ -7,3 +7,5 @@ pyparsing>=2.4.0
 python-dateutil>=2.8.0
 pytz>=2019.1
 six>=1.12.0
+sphinx-rtd-theme
+nbsphinx

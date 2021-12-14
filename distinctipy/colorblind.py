@@ -131,9 +131,9 @@ def blindMK(rgb, t):
 
     def z(v):
         if v <= 0:
-            const = 0
+            const = 0.0
         elif v >= 1:
-            const = 1
+            const = 1.0
         else:
             const = v**(1/gamma)
 
