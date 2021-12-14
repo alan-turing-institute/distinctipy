@@ -9,21 +9,22 @@ import matplotlib.pyplot as plt
 from . import colorblind
 
 # pre-define interesting colours/points at corners, edges, faces and interior of r,g,b cube
-WHITE = (1, 1, 1)
-BLACK = (0, 0, 0)
-RED = (1, 0, 0)
-GREEN = (0, 1, 0)
-BLUE = (0, 0, 1)
-CYAN = (0, 1, 1)
-YELLOW = (1, 1, 0)
-MAGENTA = (1, 0, 1)
+WHITE = (1., 1., 1.)
+BLACK = (0., 0., 0.)
+RED = (1., 0., 0.)
+GREEN = (0., 1., 0.)
+BLUE = (0., 0., 1.)
+CYAN = (0., 1., 1.)
+YELLOW = (1., 1., 0.)
+MAGENTA = (1., 0., 1.)
 
 CORNERS = [WHITE, BLACK, RED, GREEN, BLUE, CYAN, YELLOW, MAGENTA]
 
-MID_FACE = [(0, 0.5, 0), (0, 0, 0.5), (0, 1, 0.5), (0, 0.5, 1), (0, 0.5, 0.5),
-            (0.5, 0, 0), (0.5, 0.5, 0), (0.5, 1, 0), (0.5, 0, 0.5),
-            (0.5, 0, 1), (0.5, 1, 0.5), (0.5, 1, 1), (0.5, 0.5, 1),
-            (1, 0.5, 0), (1, 0, 0.5), (1, 0.5, 0.5), (1, 1, 0.5), (1, 0.5, 1)]
+MID_FACE = [(0.0, 0.5, 0.0), (0.0, 0.0, 0.5), (0.0, 1.0, 0.5), (0.0, 0.5, 1.0),
+            (0.0, 0.5, 0.5), (0.5, 0.0, 0.0), (0.5, 0.5, 0.0), (0.5, 1.0, 0.0),
+            (0.5, 0.0, 0.5), (0.5, 0.0, 1.0), (0.5, 1.0, 0.5), (0.5, 1.0, 1.0),
+            (0.5, 0.5, 1.0), (1.0, 0.5, 0.0), (1.0, 0.0, 0.5), (1.0, 0.5, 0.5),
+            (1.0, 1.0, 0.5), (1.0, 0.5, 1.0)]
 
 INTERIOR = [(0.5, 0.5, 0.5),
             (0.75, 0.5, 0.5), (0.25, 0.5, 0.5),
@@ -219,9 +220,9 @@ def invert_colors(colors):
     inverted_colors = []
 
     for color in colors:
-        r = 0 if color[0] > 0.5 else 1
-        g = 0 if color[1] > 0.5 else 1
-        b = 0 if color[2] > 0.5 else 1
+        r = 0.0 if color[0] > 0.5 else 1.0
+        g = 0.0 if color[1] > 0.5 else 1.0
+        b = 0.0 if color[2] > 0.5 else 1.0
 
         inverted_colors.append((r, g, b))
 
