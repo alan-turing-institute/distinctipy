@@ -47,7 +47,7 @@ def test_rng():
 
 
 def test_colors_are_floats():
-    """ Check that random colors dont contain integers """
+    """Check that random colors dont contain integers"""
     colors1 = distinctipy.get_colors(10)
     colors2 = distinctipy.get_colors(10, exclude_colors=colors1)
     for color in colors1 + colors2:
@@ -58,14 +58,16 @@ def test_colors_are_floats():
 
 
 def test_constants_are_floats():
-    """ Check that known color constants dont have integers in them """
+    """Check that known color constants dont have integers in them"""
     from distinctipy import colorsets
+
     def _assert_colors_are_floats(colors):
         for color in colors:
             r, g, b = color
             assert isinstance(r, float)
             assert isinstance(g, float)
             assert isinstance(b, float)
+
     for name in colorsets.list_colorsets():
         colors = colorsets.get_colors(name)
         _assert_colors_are_floats(colors)

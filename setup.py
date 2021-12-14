@@ -1,6 +1,7 @@
-import setuptools
-from os.path import exists
 import sys
+from os.path import exists
+
+import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -36,7 +37,7 @@ def parse_version(fpath):
     return visitor.version
 
 
-def parse_requirements(fname='requirements.txt', with_version=False):
+def parse_requirements(fname="requirements.txt", with_version=False):
     """
     Parse the package dependencies listed in a requirements file but strips
     specific versioning information.
@@ -48,11 +49,12 @@ def parse_requirements(fname='requirements.txt', with_version=False):
     Returns:
         List[str]: list of requirements items
     """
-    from os.path import exists, dirname, join
     import re
+    from os.path import dirname, exists, join
+
     require_fpath = fname
 
-    def parse_line(line, dpath=''):
+    def parse_line(line, dpath=""):
         """
         Parse information from a line in a requirements text file
 
@@ -60,65 +62,65 @@ def parse_requirements(fname='requirements.txt', with_version=False):
         line = '-e git+https://a.com/somedep@sometag#egg=SomeDep'
         """
         # Remove inline comments
-        comment_pos = line.find(' #')
+        comment_pos = line.find(" #")
         if comment_pos > -1:
             line = line[:comment_pos]
 
-        if line.startswith('-r '):
+        if line.startswith("-r "):
             # Allow specifying requirements in other files
-            target = join(dpath, line.split(' ')[1])
+            target = join(dpath, line.split(" ")[1])
             for info in parse_require_file(target):
                 yield info
         else:
             # See: https://www.python.org/dev/peps/pep-0508/
-            info = {'line': line}
-            if line.startswith('-e '):
-                info['package'] = line.split('#egg=')[1]
+            info = {"line": line}
+            if line.startswith("-e "):
+                info["package"] = line.split("#egg=")[1]
             else:
-                if ';' in line:
-                    pkgpart, platpart = line.split(';')
+                if ";" in line:
+                    pkgpart, platpart = line.split(";")
                     # Handle platform specific dependencies
                     # setuptools.readthedocs.io/en/latest/setuptools.html
                     # #declaring-platform-specific-dependencies
                     plat_deps = platpart.strip()
-                    info['platform_deps'] = plat_deps
+                    info["platform_deps"] = plat_deps
                 else:
                     pkgpart = line
                     platpart = None
 
                 # Remove versioning from the package
-                pat = '(' + '|'.join(['>=', '==', '>']) + ')'
+                pat = "(" + "|".join([">=", "==", ">"]) + ")"
                 parts = re.split(pat, pkgpart, maxsplit=1)
                 parts = [p.strip() for p in parts]
 
-                info['package'] = parts[0]
+                info["package"] = parts[0]
                 if len(parts) > 1:
                     op, rest = parts[1:]
                     version = rest  # NOQA
-                    info['version'] = (op, version)
+                    info["version"] = (op, version)
             yield info
 
     def parse_require_file(fpath):
         dpath = dirname(fpath)
-        with open(fpath, 'r') as f:
+        with open(fpath, "r") as f:
             for line in f.readlines():
                 line = line.strip()
-                if line and not line.startswith('#'):
+                if line and not line.startswith("#"):
                     for info in parse_line(line, dpath=dpath):
                         yield info
 
     def gen_packages_items():
         if exists(require_fpath):
             for info in parse_require_file(require_fpath):
-                parts = [info['package']]
-                if with_version and 'version' in info:
-                    parts.extend(info['version'])
-                if not sys.version.startswith('3.4'):
+                parts = [info["package"]]
+                if with_version and "version" in info:
+                    parts.extend(info["version"])
+                if not sys.version.startswith("3.4"):
                     # apparently package_deps are broken in 3.4
-                    plat_deps = info.get('platform_deps')
+                    plat_deps = info.get("platform_deps")
                     if plat_deps is not None:
-                        parts.append(';' + plat_deps)
-                item = ''.join(parts)
+                        parts.append(";" + plat_deps)
+                item = "".join(parts)
                 yield item
 
     packages = list(gen_packages_items())
@@ -146,5 +148,5 @@ setuptools.setup(
     ],
     keywords="color colour palette colormap colorblind colourblind",
     packages=setuptools.find_packages(),
-    install_requires=parse_requirements('requirements.txt'),
+    install_requires=parse_requirements("requirements.txt"),
 )
