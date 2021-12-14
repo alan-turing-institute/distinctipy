@@ -38,3 +38,9 @@ def test_color_distance():
 def test_text_color():
     """Assert suggested text colour for black background is white."""
     assert distinctipy.get_text_color((0, 0, 0)) == (1, 1, 1)
+
+
+def test_rng():
+    """Assert same colours returned if rng state give, and not if it's not given"""
+    assert distinctipy.get_colors(10, rng=123) == distinctipy.get_colors(10, rng=123)
+    assert distinctipy.get_colors(10) != distinctipy.get_colors(10)
