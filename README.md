@@ -1,4 +1,4 @@
-![distinctipy logo](https://raw.githubusercontent.com/alan-turing-institute/distinctipy/master/distinctipy_logo.png)
+![distinctipy logo](https://raw.githubusercontent.com/alan-turing-institute/distinctipy/main/distinctipy_logo.png)
 
 ![tests](https://github.com/alan-turing-institute/distinctipy/workflows/Tests/badge.svg)
 ![build](https://github.com/alan-turing-institute/distinctipy/workflows/Build/badge.svg)
@@ -58,7 +58,7 @@ colors = distinctipy.get_colors(N)
 distinctipy.color_swatch(colors)
 ```
 
-More detailed usage and example output can be found in the notebook **[examples.ipynb](https://github.com/alan-turing-institute/distinctipy/blob/master/examples.ipynb)** and **[examples gallery](https://github.com/alan-turing-institute/distinctipy/tree/master/examples)**.
+More detailed usage and example output can be found in the notebook **[examples.ipynb](https://github.com/alan-turing-institute/distinctipy/blob/main/examples.ipynb)** and **[examples gallery](https://github.com/alan-turing-institute/distinctipy/tree/main/examples)**.
 
 ## References
 

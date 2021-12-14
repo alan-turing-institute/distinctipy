@@ -318,7 +318,7 @@ def simulate_clusters(
 
     URL = (
         "https://raw.githubusercontent.com/alan-turing-institute/distinctipy/"
-        "master/distinctipy/datasets/"
+        "main/distinctipy/datasets/"
     )
     df = pd.read_csv(URL + dataset + ".csv")
 
