@@ -1,5 +1,10 @@
 ![distinctipy logo](https://raw.githubusercontent.com/alan-turing-institute/distinctipy/master/distinctipy_logo.png)
 
+![tests](https://github.com/alan-turing-institute/distinctipy/workflows/Tests/badge.svg)
+![build](https://github.com/alan-turing-institute/distinctipy/workflows/Build/badge.svg)
+[![DOI](https://zenodo.org/badge/188444660.svg)](https://zenodo.org/badge/latestdoi/188444660)
+[![Documentation Status](https://readthedocs.org/projects/distinctipy/badge/?version=latest)](https://distinctipy.readthedocs.io/en/latest/?badge=latest)
+
 *distinctipy* is a lightweight python package providing functions to generate
 colours that are visually distinct from one another.
 
@@ -9,10 +14,6 @@ to have many more colours that are clearly different from one another.
 *distinctipy* can generate lists of colours of any length, with each new colour
 added to the list being as visually distinct from the pre-existing colours in
  the list as possible.
-
-![tests](https://github.com/alan-turing-institute/distinctipy/workflows/Tests/badge.svg)
-![build](https://github.com/alan-turing-institute/distinctipy/workflows/Build/badge.svg)
-[![DOI](https://zenodo.org/badge/188444660.svg)](https://zenodo.org/badge/latestdoi/188444660)
 
 ## Installation
 
