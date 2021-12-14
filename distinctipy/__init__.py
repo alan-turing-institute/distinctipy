@@ -12,7 +12,7 @@ Example:
 
 name = "distinctipy"
 
-__version__ = "0.1.5"
+__version__ = "0.2.0"
 
 # Expose these module names and their internals in the top-level API
 __external__ = ["distinctipy"]

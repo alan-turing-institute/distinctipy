@@ -20,13 +20,14 @@ added to the list being as visually distinct from the pre-existing colours in
 *distinctipy* is designed for Python 3 and can be installed with pip by running:
 
 ```python
-pip3 install distinctipy
+pip install distinctipy
 ```
 
-Alternatively clone the repo and then in its parent directory run:
+Alternatively clone the repo and install it locally:
 ```bash
-pip3 install -r requirements.txt
-pip3 install .
+git clone https://github.com/alan-turing-institute/distinctipy.git
+cd distinctipy
+pip install .
 ```
 
 ## Usage and Examples
