@@ -1,6 +1,5 @@
 from distinctipy import distinctipy
 
-import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
 import numpy as np
@@ -174,6 +173,7 @@ def simulate_image(img_path, colorblind_type):
 
     :return:
     """
+    import matplotlib.pyplot as plt
     filter_function = fBlind[colorblind_type]
 
     img = mpimg.imread(img_path)
@@ -246,6 +246,7 @@ def simulate_colors(colors, colorblind_type='Deuteranomaly', one_row=None):
 
     :return:
     """
+    import matplotlib.pyplot as plt
 
     filtered_colors = [colorblind_filter(color, colorblind_type) for color in colors]
 
@@ -287,6 +288,7 @@ def simulate_clusters(dataset='s2', colorblind_type='Deuteranomaly', colorblind_
 
     :return:
     """
+    import matplotlib.pyplot as plt
 
     if dataset not in ('s1', 's2', 's3', 's4', 'a1','a2', 'a3', 'b1'):
         raise ValueError('dataset must be s1, s2, s3, s4, a1, a2, a3 or b1')
