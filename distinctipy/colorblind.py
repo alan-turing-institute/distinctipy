@@ -3,7 +3,6 @@ Adapted from "The Color Blind Simulation function" by Matthew Wickline
 and the Human - Computer Interaction Resource Network (http://hcirn.com/), 2000 - 2001.
 """
 import numpy as np
-from distinctipy import distinctipy
 
 rBlind = {
     "protan": {"cpu": 0.735, "cpv": 0.265, "am": 1.273463, "ayi": -0.073894},
@@ -257,6 +256,7 @@ def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None):
 
     :return:
     """
+    from distinctipy import distinctipy
     import matplotlib.pyplot as plt
 
     filtered_colors = [colorblind_filter(color, colorblind_type) for color in colors]
@@ -311,6 +311,7 @@ def simulate_clusters(
     """
     import matplotlib.pyplot as plt
     import pandas as pd
+    from distinctipy import distinctipy
 
     if dataset not in ("s1", "s2", "s3", "s4", "a1", "a2", "a3", "b1"):
         raise ValueError("dataset must be s1, s2, s3, s4, a1, a2, a3 or b1")
@@ -352,6 +353,11 @@ def simulate_clusters(
     plt.show()
 
 
-if __name__ == "__main__":
+def _main():
+    from distinctipy import distinctipy
     colors = distinctipy.get_colors(36)
     simulate_colors(colors, "Deuteranomaly")
+
+
+if __name__ == "__main__":
+    _main()
