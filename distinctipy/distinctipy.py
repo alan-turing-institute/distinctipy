@@ -1,8 +1,6 @@
 import math
 import random
 
-import matplotlib.colors
-import matplotlib.patches as patches
 import numpy as np
 
 from . import colorblind
@@ -359,6 +357,8 @@ def color_swatch(
     :return:
     """
     import matplotlib.pyplot as plt
+    import matplotlib.patches as patches
+    import matplotlib.colors
 
     if one_row is None:
         if len(colors) > 8:
@@ -449,6 +449,7 @@ def get_hex(color):
     :param color: (r,g,b) color tuple. r,g,b are floats between 0 and 1.
     :return: hex str of color
     """
+    import matplotlib.colors
     return matplotlib.colors.rgb2hex(color)
 
 
@@ -472,6 +473,7 @@ def get_colormap(list_of_colors, name="distinctipy"):
 
     :return: cmap: a matplotlib colormap.
     """
+    import matplotlib.colors
     cmap = matplotlib.colors.ListedColormap(list_of_colors, name=name)
 
     return cmap

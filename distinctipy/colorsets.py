@@ -1,5 +1,3 @@
-import matplotlib as mpl
-
 from . import distinctipy
 
 colors = {
@@ -465,6 +463,7 @@ def set_palette(name="normal"):
     :param name: The name of a colour set present in
     distinctipy.colorsets.list_colorsets()
     """
+    import matplotlib as mpl
     name = __process_name(name)
     assert name in list_colorsets(), "name should exist in " + str(list_colorsets())
 
