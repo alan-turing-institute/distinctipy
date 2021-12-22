@@ -1,4 +1,4 @@
-from distinctipy import distinctipy
+import distinctipy
 
 
 def is_valid_color(color):
@@ -73,3 +73,21 @@ def test_constants_are_floats():
         _assert_colors_are_floats(colors)
     _assert_colors_are_floats(distinctipy.CORNERS)
     _assert_colors_are_floats(distinctipy.POINTS_OF_INTEREST)
+
+
+def test_distinct_color_with_colorblind():
+    colorblind_types = list(distinctipy.colorblind.fBlind)
+    for colorblind_type in colorblind_types:
+        pass
+
+
+def test_ensure_rng():
+    import random
+    from distinctipy.distinctipy import _ensure_rng
+    assert _ensure_rng(1).randint(0, 1000) == 137
+    assert _ensure_rng(1.3).randint(0, 1000) == 57
+    rng = random.Random()
+    assert _ensure_rng(rng) is rng
+    assert _ensure_rng(1) is not rng
+    assert _ensure_rng(None) is not rng
+    assert _ensure_rng(None) is random._inst
