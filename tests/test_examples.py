@@ -21,4 +21,23 @@ def test_compare_clusters():
 
 def test_compare_colors():
     require_modules(['matplotlib'])
-    distinctipy.compare_colors(show=False)
+    distinctipy.examples.compare_colors(show=False)
+
+
+def test_color_swatch():
+    require_modules(['matplotlib'])
+    import matplotlib.pyplot as plt
+    ax = plt.gca()
+    colors = distinctipy.get_colors(10)
+    distinctipy.distinctipy.color_swatch(colors, ax=ax)
+
+
+def test_simulate_clusters():
+    require_modules(['matplotlib', 'pandas'])
+    distinctipy.colorblind.simulate_clusters(show=False)
+
+
+def test_simulate_colors():
+    require_modules(['matplotlib'])
+    colors = distinctipy.get_colors(10)
+    distinctipy.colorblind.simulate_colors(colors, show=False)

@@ -75,10 +75,23 @@ def test_constants_are_floats():
     _assert_colors_are_floats(distinctipy.POINTS_OF_INTEREST)
 
 
-def test_distinct_color_with_colorblind():
+def test_colorblind_options():
     colorblind_types = list(distinctipy.colorblind.fBlind)
+    colorblind_colors = {}
     for colorblind_type in colorblind_types:
-        pass
+        colors = distinctipy.get_colors(
+            3, rng=15662713, colorblind_type=colorblind_type)
+        info = {
+            'colors': colors
+        }
+        colorblind_colors[colorblind_type] = info
+
+        next_color = distinctipy.distinct_color([(1, 1, 1)], colorblind_type=colorblind_type)
+        print('colorblind_type = {!r}'.format(colorblind_type))
+        print('next_color = {!r}'.format(next_color))
+
+        color = distinctipy.distinct_color([(1, 1, 1)])
+        assert color == (0, 0, 0)
 
 
 def test_ensure_rng():

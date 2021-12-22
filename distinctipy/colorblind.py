@@ -278,7 +278,8 @@ def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None):
 
 
 def simulate_clusters(
-    dataset="s2", colorblind_type="Deuteranomaly", colorblind_distinct=False
+    dataset="s2", colorblind_type="Deuteranomaly", colorblind_distinct=False,
+    show=True,
 ):
     """
     Simulates the appearance of an example clustering dataset with and without
@@ -350,7 +351,8 @@ def simulate_clusters(
     axes[1].get_yaxis().set_visible(False)
     axes[1].set_title("With " + colorblind_type + " Colourblindness")
 
-    plt.show()
+    if show:
+        plt.show()
 
 
 def _main():
