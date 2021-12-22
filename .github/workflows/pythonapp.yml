@@ -34,7 +34,7 @@ jobs:
     
   build_and_test:
 
-    name: ${{ matrix.python-version }} on ${{ matrix.os }}, arch=${{ matrix.arch }}
+    name: ${{ matrix.python-version }} ${{ matrix.depsize }} on ${{ matrix.os }}, arch=${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -48,7 +48,7 @@ jobs:
           - '3.9'
           - '3.10'
           - 'pypy-3.7'
-        dependencies: 
+        depsize: 
           - 'minimal'
           - 'full'
 
@@ -69,13 +69,13 @@ jobs:
         python -m pip install --upgrade pip
 
     - name: Install full dependencies
-      if: matrix.dependencies == 'full' 
+      if: matrix.depsize == 'full' 
       shell: bash
       run: |
         pip install .[all,tests]
 
     - name: Install minimal dependencies
-      if: matrix.dependencies == 'minimal' 
+      if: matrix.depsize == 'minimal' 
       shell: bash
       run: |
         pip install .[tests]
@@ -83,7 +83,9 @@ jobs:
     - name: Test with pytest
       shell: bash
       run: |
-        pytest --cov=distinctipy --cov-report=term
+        mkdir _workspace
+        cd _workspace
+        pytest --cov=distinctipy --cov-report=term ../tests
         # Give coverage file a distinct name for each runner
         CUSTOM_RUNNER_ID="${CI_PYTHON_VERSION}_${GITHUB_RUN_ID}_${RUNNER_OS}"
         mv .coverage ".coverage.${CUSTOM_RUNNER_ID}"
