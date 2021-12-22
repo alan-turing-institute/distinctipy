@@ -459,7 +459,8 @@ def get_rgb256(color):
     :param color: (r,g,b) tuple with r,g,b floats between 0.0 and 1.0
     :return: (r,g,b) ints between 0 and 255
     """
-    return round(color[0] * 255), round(color[1] * 255), round(color[2] * 255)
+    return (int(round(color[0] * 255)), int(round(color[1] * 255)),
+            int(round(color[2] * 255)))
 
 
 def get_colormap(list_of_colors, name="distinctipy"):

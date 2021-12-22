@@ -38,6 +38,7 @@ def test_color_distance():
 def test_text_color():
     """Assert suggested text colour for black background is white."""
     assert distinctipy.get_text_color((0, 0, 0)) == (1, 1, 1)
+    assert distinctipy.get_text_color((1, 1, 1)) == (0, 0, 0)
 
 
 def test_rng():
@@ -75,23 +76,44 @@ def test_constants_are_floats():
     _assert_colors_are_floats(distinctipy.POINTS_OF_INTEREST)
 
 
+def test_invert_colors():
+    from distinctipy.distinctipy import invert_colors, INTERIOR, get_rgb256
+    inverted = invert_colors(INTERIOR)
+    result = [get_rgb256(c) for c in inverted]
+    expected = [(255, 255, 255), (0, 255, 255), (255, 255, 255), (255, 0, 255), (255, 255, 255), (255, 255, 0), (255, 255, 255)]
+    assert expected == result
+
+
 def test_colorblind_options():
-    colorblind_types = list(distinctipy.colorblind.fBlind)
-    colorblind_colors = {}
+    from distinctipy.distinctipy import BLACK, WHITE, get_rgb256
+    colorblind_types = sorted(distinctipy.colorblind.fBlind)
+    results = []
     for colorblind_type in colorblind_types:
         colors = distinctipy.get_colors(
-            3, rng=15662713, colorblind_type=colorblind_type)
+            5, rng=15662713, colorblind_type=colorblind_type)
+        exclude = colors + [BLACK, WHITE]
+
+        new_color = distinctipy.distinct_color(
+            exclude, colorblind_type=colorblind_type, rng=15662713)
+
         info = {
-            'colors': colors
+            'type': colorblind_type,
+            'colors': [get_rgb256(c) for c in colors],
+            'new_colors': get_rgb256(new_color),
         }
-        colorblind_colors[colorblind_type] = info
-
-        next_color = distinctipy.distinct_color([(1, 1, 1)], colorblind_type=colorblind_type)
-        print('colorblind_type = {!r}'.format(colorblind_type))
-        print('next_color = {!r}'.format(next_color))
-
-        color = distinctipy.distinct_color([(1, 1, 1)])
-        assert color == (0, 0, 0)
+        results.append(info)
+    expected = [
+        {'colors': [(9, 157, 230), (239, 13, 3), (252, 185, 22), (0, 0, 255), (17, 253, 248)], 'new_colors': (255, 0, 255), 'type': 'Achromatomaly'},
+        {'colors': [(128, 128, 128), (15, 67, 174), (144, 236, 86), (55, 237, 36), (69, 104, 124)], 'new_colors': (35, 8, 149), 'type': 'Achromatopsia'},
+        {'colors': [(0, 128, 255), (255, 128, 0), (178, 25, 130), (28, 211, 171), (211, 234, 6)], 'new_colors': (167, 2, 0), 'type': 'Deuteranomaly'},
+        {'colors': [(208, 38, 250), (240, 136, 18), (120, 163, 170), (89, 62, 107), (202, 224, 6)], 'new_colors': (162, 46, 2), 'type': 'Deuteranopia'},
+        {'colors': [(0, 255, 0), (255, 0, 255), (0, 128, 255), (255, 128, 0), (128, 191, 128)], 'new_colors': (72, 3, 167), 'type': 'Normal'},
+        {'colors': [(34, 109, 250), (145, 179, 14), (255, 0, 128), (1, 223, 183), (65, 2, 163)], 'new_colors': (208, 253, 7), 'type': 'Protanomaly'},
+        {'colors': [(151, 86, 241), (21, 191, 12), (12, 176, 191), (60, 70, 115), (222, 233, 113)], 'new_colors': (18, 96, 5), 'type': 'Protanopia'},
+        {'colors': [(1, 162, 214), (255, 69, 91), (89, 108, 21), (109, 246, 18), (158, 3, 8)], 'new_colors': (226, 132, 249), 'type': 'Tritanomaly'},
+        {'colors': [(1, 162, 214), (255, 69, 91), (188, 142, 244), (113, 46, 164), (26, 250, 133)], 'new_colors': (167, 2, 0), 'type': 'Tritanopia'},
+    ]
+    assert results == expected
 
 
 def test_ensure_rng():

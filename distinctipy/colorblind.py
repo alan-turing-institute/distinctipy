@@ -232,7 +232,7 @@ def colorblind_filter(color, colorblind_type="Deuteranomaly"):
     return filter_function(color)
 
 
-def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None):
+def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None, show=True):
     """
     Simulate the appearance of colors with and without colourblindness.
 
@@ -254,6 +254,8 @@ def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None):
     :param one_row: If True display colours on one row, if False as a grid. If
     one_row=None a grid is used when there are more than 8 colours.
 
+    :param show: if True, calls ``plt.show()``.
+
     :return:
     """
     from distinctipy import distinctipy
@@ -274,7 +276,8 @@ def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None):
         title="Viewed with " + colorblind_type + " Colour Blindness",
     )
 
-    plt.show()
+    if show:
+        plt.show()
 
 
 def simulate_clusters(
@@ -307,6 +310,8 @@ def simulate_clusters(
     :param colorblind_distinct: If True generate colours to be as distinct as possible
     for colorblind_type. Else generate colours that are as distinct as possible for
     normal vision.
+
+    :param show: if True, calls ``plt.show()``.
 
     :return:
     """
