@@ -12,7 +12,7 @@ Example:
 
 name = "distinctipy"
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 
 # Expose these module names and their internals in the top-level API
 __external__ = ["distinctipy"]
@@ -59,9 +59,6 @@ from .distinctipy import (
 from .examples import (
     compare_clusters,
     compare_colors,
-)
-from distinctipy import (
-    name,
 )
 
 __all__ = [
