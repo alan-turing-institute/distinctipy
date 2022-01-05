@@ -3,7 +3,7 @@
 
 ![tests](https://github.com/alan-turing-institute/distinctipy/workflows/Tests/badge.svg)
 ![build](https://github.com/alan-turing-institute/distinctipy/workflows/Build/badge.svg)
-![coverage(https://codecov.io/github/alan-turing-institute/distinctipy?branch=main)](https://codecov.io/github/alan-turing-institute/distinctipy/badge.svg?branch=main&service=github)
+[![codecov](https://codecov.io/gh/alan-turing-institute/distinctipy/branch/main/graph/badge.svg)](https://codecov.io/gh/alan-turing-institute/distinctipy)
 [![DOI](https://zenodo.org/badge/188444660.svg)](https://zenodo.org/badge/latestdoi/188444660)
 [![Documentation Status](https://readthedocs.org/projects/distinctipy/badge/?version=latest)](https://distinctipy.readthedocs.io/en/latest/?badge=latest)
 
