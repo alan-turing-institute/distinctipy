@@ -32,6 +32,25 @@ cd distinctipy
 pip install .
 ```
 
+### Optional Dependencies
+
+Starting in version 1.2.1 `distinctipy` no longer bundles `matplotlib`, `pandas` or dev dependencies in the default installation. If you wish to view
+colours (e.g. with `distinctipy.color_swatch`) or examples you will need `matplotlib` and `pandas` installed. To do this, either install `distinctipy`
+with the optional flag:
+```bash
+pip install distinctipy[optional]
+```
+
+Or install them separately:
+```bash
+pip install matplotlib pandas
+```
+
+For developers, to install the stack needed to run tests, generate docs etc. use the `[all]` flag:
+```bash
+pip install distinctipy[all]
+```
+
 ## Usage and Examples
 
 *distinctipy* can:
