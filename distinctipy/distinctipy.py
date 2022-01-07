@@ -299,7 +299,7 @@ def get_colors(
     if return_excluded:
         return colors
     else:
-        return colors[len(exclude_colors):]
+        return colors[len(exclude_colors) :]
 
 
 def invert_colors(colors):
