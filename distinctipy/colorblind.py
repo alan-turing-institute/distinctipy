@@ -177,8 +177,8 @@ def simulate_image(img_path, colorblind_type):
 
     :return:
     """
-    import matplotlib.pyplot as plt
     import matplotlib.image as mpimg
+    import matplotlib.pyplot as plt
 
     filter_function = fBlind[colorblind_type]
 
@@ -258,8 +258,9 @@ def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None, show=
 
     :return:
     """
-    from distinctipy import distinctipy
     import matplotlib.pyplot as plt
+
+    from distinctipy import distinctipy
 
     filtered_colors = [colorblind_filter(color, colorblind_type) for color in colors]
 
@@ -281,7 +282,9 @@ def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None, show=
 
 
 def simulate_clusters(
-    dataset="s2", colorblind_type="Deuteranomaly", colorblind_distinct=False,
+    dataset="s2",
+    colorblind_type="Deuteranomaly",
+    colorblind_distinct=False,
     show=True,
 ):
     """
@@ -317,6 +320,7 @@ def simulate_clusters(
     """
     import matplotlib.pyplot as plt
     import pandas as pd
+
     from distinctipy import distinctipy
 
     if dataset not in ("s1", "s2", "s3", "s4", "a1", "a2", "a3", "b1"):
@@ -362,6 +366,7 @@ def simulate_clusters(
 
 def _main():
     from distinctipy import distinctipy
+
     colors = distinctipy.get_colors(36)
     simulate_colors(colors, "Deuteranomaly")
 

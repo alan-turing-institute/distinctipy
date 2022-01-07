@@ -15,7 +15,9 @@ def list_colorsets():
 
 
 def __process_name(name):
-    """map the name colorblind to deuteranomaly (most common type of common blindness)"""
+    """
+    Map the name colorblind to deuteranomaly (most common type of common blindness)
+    """
     if name == "colorblind":
         return "deuteranomaly"
     else:
@@ -62,6 +64,7 @@ def set_palette(name="normal"):
     distinctipy.colorsets.list_colorsets()
     """
     import matplotlib as mpl
+
     name = __process_name(name)
     assert name in list_colorsets(), "name should exist in " + str(list_colorsets())
 

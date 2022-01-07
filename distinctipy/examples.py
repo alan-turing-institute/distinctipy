@@ -23,8 +23,8 @@ def compare_clusters(dataset="a3", compare_with="tab20", show=True):
 
     :return:
     """
-    import pandas as pd
     import matplotlib.pyplot as plt
+    import pandas as pd
 
     if dataset not in ("s1", "s2", "s3", "s4", "a1", "a2", "a3", "b1"):
         raise ValueError("dataset must be s1, s2, s3, s4, a1, a2, a3 or b1")

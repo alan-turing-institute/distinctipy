@@ -27,11 +27,7 @@ mkinit -m distinctipy --relative --black
 """
 
 # Everything after this point is autogenerate with mkinit
-from . import colorblind
-from . import colorsets
-from . import distinctipy
-from . import examples
-
+from . import colorblind, colorsets, distinctipy, examples
 from .distinctipy import (
     BLACK,
     BLUE,
@@ -56,10 +52,7 @@ from .distinctipy import (
     get_text_color,
     invert_colors,
 )
-from .examples import (
-    compare_clusters,
-    compare_colors,
-)
+from .examples import compare_clusters, compare_colors
 
 __all__ = [
     "BLACK",

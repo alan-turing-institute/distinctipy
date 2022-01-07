@@ -299,7 +299,7 @@ def get_colors(
     if return_excluded:
         return colors
     else:
-        return colors[len(exclude_colors) :]
+        return colors[len(exclude_colors):]
 
 
 def invert_colors(colors):
@@ -356,9 +356,9 @@ def color_swatch(
 
     :return:
     """
-    import matplotlib.pyplot as plt
-    import matplotlib.patches as patches
     import matplotlib.colors
+    import matplotlib.patches as patches
+    import matplotlib.pyplot as plt
 
     if one_row is None:
         if len(colors) > 8:
@@ -450,6 +450,7 @@ def get_hex(color):
     :return: hex str of color
     """
     import matplotlib.colors
+
     return matplotlib.colors.rgb2hex(color)
 
 
@@ -459,8 +460,11 @@ def get_rgb256(color):
     :param color: (r,g,b) tuple with r,g,b floats between 0.0 and 1.0
     :return: (r,g,b) ints between 0 and 255
     """
-    return (int(round(color[0] * 255)), int(round(color[1] * 255)),
-            int(round(color[2] * 255)))
+    return (
+        int(round(color[0] * 255)),
+        int(round(color[1] * 255)),
+        int(round(color[2] * 255)),
+    )
 
 
 def get_colormap(list_of_colors, name="distinctipy"):
@@ -475,6 +479,7 @@ def get_colormap(list_of_colors, name="distinctipy"):
     :return: cmap: a matplotlib colormap.
     """
     import matplotlib.colors
+
     cmap = matplotlib.colors.ListedColormap(list_of_colors, name=name)
 
     return cmap
