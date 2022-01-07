@@ -39,12 +39,11 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
         arch: [auto]
         python-version: 
-          - '3.6'
           - '3.7'
           - '3.8'
           - '3.9'
           - '3.10'
-          #- 'pypy-3.7'
+          #- 'pypy-3.7'  # see https://github.com/pandas-dev/pandas/issues/44253
         depsize: 
           - 'minimal'
           - 'full'
