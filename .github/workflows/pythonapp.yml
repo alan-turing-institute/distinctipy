@@ -105,4 +105,5 @@ jobs:
     - name: Codecov Upload
       uses: codecov/codecov-action@v2.1.0
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         file: ./tests/coverage.xml
