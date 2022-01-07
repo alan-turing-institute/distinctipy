@@ -1,12 +1,9 @@
-import matplotlib.cm
-import matplotlib.colors
 import numpy as np
-import pandas as pd
 
 from . import distinctipy
 
 
-def compare_clusters(dataset="a3", compare_with="tab20"):
+def compare_clusters(dataset="a3", compare_with="tab20", show=True):
     """
     Displays comparisons of distinctipy colormaps with built-in matplotlib colormaps
     using example clustering datasets from P. Fränti and S. Sieranoja
@@ -27,6 +24,7 @@ def compare_clusters(dataset="a3", compare_with="tab20"):
     :return:
     """
     import matplotlib.pyplot as plt
+    import pandas as pd
 
     if dataset not in ("s1", "s2", "s3", "s4", "a1", "a2", "a3", "b1"):
         raise ValueError("dataset must be s1, s2, s3, s4, a1, a2, a3 or b1")
@@ -59,10 +57,11 @@ def compare_clusters(dataset="a3", compare_with="tab20"):
     axes[1].get_yaxis().set_visible(False)
     axes[1].set_title(compare_with)
 
-    plt.show()
+    if show:
+        plt.show()
 
 
-def compare_colors(N=36, compare_with="tab20"):
+def compare_colors(N=36, compare_with="tab20", show=True):
     """
     Compare colour swatches for distinctipy and a given matplotlib colormap for N
     colours.
@@ -70,6 +69,8 @@ def compare_colors(N=36, compare_with="tab20"):
     :param compare_with: str representing name of a built-in matplotlib colormap
     :return:
     """
+    import matplotlib.cm
+    import matplotlib.colors
     import matplotlib.pyplot as plt
 
     colors_distinctipy = distinctipy.get_colors(
@@ -88,4 +89,5 @@ def compare_colors(N=36, compare_with="tab20"):
     distinctipy.color_swatch(colors_distinctipy, ax=axes[0], title="distinctipy")
     distinctipy.color_swatch(colors_compare, ax=axes[1], title=compare_with)
 
-    plt.show()
+    if show:
+        plt.show()

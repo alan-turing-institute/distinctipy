@@ -2,41 +2,107 @@ name: Tests
 
 on:
   push:
-    paths:
-    - 'distinctipy/**'
-    - 'tests/**'
-    - 'requirements.txt'
-    - 'setup.py'
-    - '.github/workflows/pythonapp.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
-  build:
-
+  lint:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
-    - name: Display Python version
-      run: python -c "import sys; print(sys.version)"
+        python-version: 3.8
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install .
-    - name: Lint with flake8
+        pip install .[tests]
+
+    - name: Code quality checks
       run: |
-        pip install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        isort --check-only .
+        black --check .
+        flake8
+
+  build_and_test:
+
+    name: ${{ matrix.python-version }} ${{ matrix.depsize }} on ${{ matrix.os }}, arch=${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        arch: [auto]
+        python-version: 
+          - '3.7'
+          - '3.8'
+          - '3.9'
+          - '3.10'
+          #- 'pypy-3.7'  # see https://github.com/pandas-dev/pandas/issues/44253
+        depsize: 
+          - 'minimal'
+          - 'full'
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
+
+    - name: Upgrade pip 
+      run: |
+        python -m pip install --upgrade pip
+
+    - name: Install full dependencies
+      if: matrix.depsize == 'full' 
+      shell: bash
+      run: |
+        pip install .[all,tests]
+
+    - name: Install minimal dependencies
+      if: matrix.depsize == 'minimal' 
+      shell: bash
+      run: |
+        pip install .[tests]
+
     - name: Test with pytest
+      shell: bash
       run: |
-        pip install pytest
-        pytest
+        mkdir -p _empty_workspace
+        cd _empty_workspace
+        pytest --cov=distinctipy --cov-report=term ../tests
+        # Give coverage file a distinct name for each runner
+        CUSTOM_RUNNER_ID="${CI_PYTHON_VERSION}_${GITHUB_RUN_ID}_${RUNNER_OS}"
+        mv .coverage "../.coverage.${CUSTOM_RUNNER_ID}"
+        cd ..
+
+    - name: Set up Python 3.8 to combine coverage Linux
+      if: runner.os == 'Linux'
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Combine coverage Linux
+      if: runner.os == 'Linux'
+      run: |
+        python -m pip install coverage[toml]
+        coverage combine .
+        coverage xml -o ./tests/coverage.xml
+        find . -name .coverage.*
+        find . -name coverage.xml
+
+    - name: Codecov Upload
+      uses: codecov/codecov-action@v2.1.0
+      with:
+        file: ./tests/coverage.xml

@@ -2,11 +2,7 @@
 Adapted from "The Color Blind Simulation function" by Matthew Wickline
 and the Human - Computer Interaction Resource Network (http://hcirn.com/), 2000 - 2001.
 """
-import matplotlib.image as mpimg
 import numpy as np
-import pandas as pd
-
-from distinctipy import distinctipy
 
 rBlind = {
     "protan": {"cpu": 0.735, "cpv": 0.265, "am": 1.273463, "ayi": -0.073894},
@@ -181,6 +177,7 @@ def simulate_image(img_path, colorblind_type):
 
     :return:
     """
+    import matplotlib.image as mpimg
     import matplotlib.pyplot as plt
 
     filter_function = fBlind[colorblind_type]
@@ -235,7 +232,7 @@ def colorblind_filter(color, colorblind_type="Deuteranomaly"):
     return filter_function(color)
 
 
-def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None):
+def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None, show=True):
     """
     Simulate the appearance of colors with and without colourblindness.
 
@@ -257,9 +254,13 @@ def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None):
     :param one_row: If True display colours on one row, if False as a grid. If
     one_row=None a grid is used when there are more than 8 colours.
 
+    :param show: if True, calls ``plt.show()``.
+
     :return:
     """
     import matplotlib.pyplot as plt
+
+    from distinctipy import distinctipy
 
     filtered_colors = [colorblind_filter(color, colorblind_type) for color in colors]
 
@@ -276,11 +277,15 @@ def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None):
         title="Viewed with " + colorblind_type + " Colour Blindness",
     )
 
-    plt.show()
+    if show:
+        plt.show()
 
 
 def simulate_clusters(
-    dataset="s2", colorblind_type="Deuteranomaly", colorblind_distinct=False
+    dataset="s2",
+    colorblind_type="Deuteranomaly",
+    colorblind_distinct=False,
+    show=True,
 ):
     """
     Simulates the appearance of an example clustering dataset with and without
@@ -309,9 +314,14 @@ def simulate_clusters(
     for colorblind_type. Else generate colours that are as distinct as possible for
     normal vision.
 
+    :param show: if True, calls ``plt.show()``.
+
     :return:
     """
     import matplotlib.pyplot as plt
+    import pandas as pd
+
+    from distinctipy import distinctipy
 
     if dataset not in ("s1", "s2", "s3", "s4", "a1", "a2", "a3", "b1"):
         raise ValueError("dataset must be s1, s2, s3, s4, a1, a2, a3 or b1")
@@ -350,9 +360,16 @@ def simulate_clusters(
     axes[1].get_yaxis().set_visible(False)
     axes[1].set_title("With " + colorblind_type + " Colourblindness")
 
-    plt.show()
+    if show:
+        plt.show()
+
+
+def _main():
+    from distinctipy import distinctipy
+
+    colors = distinctipy.get_colors(36)
+    simulate_colors(colors, "Deuteranomaly")
 
 
 if __name__ == "__main__":
-    colors = distinctipy.get_colors(36)
-    simulate_colors(colors, "Deuteranomaly")
+    _main()

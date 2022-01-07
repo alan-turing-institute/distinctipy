@@ -148,5 +148,11 @@ setuptools.setup(
     ],
     keywords="color colour palette colormap colorblind colourblind",
     packages=setuptools.find_packages(),
-    install_requires=parse_requirements("requirements.txt"),
+    install_requires=parse_requirements("requirements/runtime.txt"),
+    extras_require={
+        "all": parse_requirements("requirements.txt"),
+        "tests": parse_requirements("requirements/tests.txt"),
+        "docs": parse_requirements("requirements/docs.txt"),
+        "optional": parse_requirements("requirements/optional.txt"),
+    },
 )

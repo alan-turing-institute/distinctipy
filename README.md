@@ -1,7 +1,9 @@
 ![distinctipy logo](https://raw.githubusercontent.com/alan-turing-institute/distinctipy/main/distinctipy_logo.png)
 
+
 ![tests](https://github.com/alan-turing-institute/distinctipy/workflows/Tests/badge.svg)
 ![build](https://github.com/alan-turing-institute/distinctipy/workflows/Build/badge.svg)
+[![codecov](https://codecov.io/gh/alan-turing-institute/distinctipy/branch/main/graph/badge.svg)](https://codecov.io/gh/alan-turing-institute/distinctipy)
 [![DOI](https://zenodo.org/badge/188444660.svg)](https://zenodo.org/badge/latestdoi/188444660)
 [![Documentation Status](https://readthedocs.org/projects/distinctipy/badge/?version=latest)](https://distinctipy.readthedocs.io/en/latest/?badge=latest)
 
@@ -28,6 +30,25 @@ Alternatively clone the repo and install it locally:
 git clone https://github.com/alan-turing-institute/distinctipy.git
 cd distinctipy
 pip install .
+```
+
+### Optional Dependencies
+
+Starting in version 1.2.1 `distinctipy` no longer bundles `matplotlib`, `pandas` or dev dependencies in the default installation. If you wish to view
+colours (e.g. with `distinctipy.color_swatch`) or examples you will need `matplotlib` and `pandas` installed. To do this, either install `distinctipy`
+with the optional flag:
+```bash
+pip install distinctipy[optional]
+```
+
+Or install them separately:
+```bash
+pip install matplotlib pandas
+```
+
+For developers, to install the stack needed to run tests, generate docs etc. use the `[all]` flag:
+```bash
+pip install distinctipy[all]
 ```
 
 ## Usage and Examples
