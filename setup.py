@@ -145,6 +145,7 @@ setuptools.setup(
         "Topic :: Multimedia :: Graphics",
         "Topic :: Scientific/Engineering :: Visualization",
         "Topic :: Utilities",
+        "Framework :: Matplotlib",
     ],
     keywords="color colour palette colormap colorblind colourblind",
     packages=setuptools.find_packages(),
