@@ -27,7 +27,7 @@ copyright = "2020, Jack Roberts"
 author = "Jack Roberts"
 
 # The full version, including alpha/beta/rc tags
-release = "v1.1"
+release = "v1.2.2"
 
 
 # -- General configuration ---------------------------------------------------
