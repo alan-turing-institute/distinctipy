@@ -52,7 +52,7 @@ INTERIOR = [
 POINTS_OF_INTEREST = CORNERS + MID_FACE + INTERIOR
 
 
-_SEED_MAX = int(2 ** 32 - 1)
+_SEED_MAX = int(2**32 - 1)
 
 
 def _ensure_rng(rng):

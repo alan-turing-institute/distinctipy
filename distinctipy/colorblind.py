@@ -62,7 +62,7 @@ def blindMK(rgb, t):
     g = rgb[1]
     b = rgb[2]
 
-    c_rgb = (r ** gamma, g ** gamma, b ** gamma)
+    c_rgb = (r**gamma, g**gamma, b**gamma)
     c_xyz = rgb2xyz(c_rgb)
 
     sum_xyz = sum(c_xyz)
