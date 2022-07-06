@@ -91,4 +91,6 @@ stack overflow answers. In particular:
 * **Best text colour for background:** [Mark Ransom on Stack Overflow](https://stackoverflow.com/a/3943023)
 * **Colourblindness Filters:** [Matthew Wickline and the Human-Computer Interaction Resource Network](http://web.archive.org/web/20090318054431/http://www.nofunc.com/Color_Blindness_Library) (web archive)
 
-Thanks!
+## Citing Distinctipy
+
+If you would like to cite distinctipy, please refer to the upload of the package on Zenodo: https://doi.org/10.5281/zenodo.3985191
