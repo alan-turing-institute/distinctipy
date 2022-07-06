@@ -1,5 +1,5 @@
 ##############
-Documentation
+API Reference
 ##############
 
 distinctipy core

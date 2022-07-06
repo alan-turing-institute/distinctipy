@@ -3,24 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to distinctipy's documentation!
-=======================================
+distinctipy
+=================
 
-This page is a work in progress, for more details about distinctipy have a look at the repo on `GitHub
-<https://github.com/alan-turing-institute/distinctipy>`_.
+distinctipy is a lightweight python package providing functions to generate
+colours that are visually distinct from one another.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
+   
    about
-   docs
+   install
    usage.ipynb
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   api
