@@ -10,6 +10,7 @@ def compare_clusters(dataset="a3", compare_with="tab20", show=True):
     (http://cs.joensuu.fi/sipu/datasets/).
 
     :param dataset: The dataset to display, the options are:
+
         * s1, s2, s3, s4: 15 clusters with increasing overlaps from s1 to s4
         * a1: 20 clusters
         * a2: 35 clusters
@@ -19,6 +20,7 @@ def compare_clusters(dataset="a3", compare_with="tab20", show=True):
     :param compare_with: The name of a matplotlib cmap to compare distinctipy with.
 
     :type dataset: str
+
     :type compare_with: str
 
     :return:
@@ -65,8 +67,11 @@ def compare_colors(N=36, compare_with="tab20", show=True):
     """
     Compare colour swatches for distinctipy and a given matplotlib colormap for N
     colours.
+
     :param N: Number of colours to generate
+
     :param compare_with: str representing name of a built-in matplotlib colormap
+
     :return:
     """
     import matplotlib.cm

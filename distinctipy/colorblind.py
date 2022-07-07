@@ -164,16 +164,17 @@ def simulate_image(img_path, colorblind_type):
     :param img_path:
 
     :param colorblind_type: Type of colourblindness to simulate, can be:
-        'Normal': Normal vision
-        'Protanopia': Red-green colorblindness (1% males)
-        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
-        'Deuteranopia': Red-green colorblindness (1% males)
-        'Deuteranomaly': Red-green colorblindness (most common type: 6% males, 0.4%
-                         females)
-        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
-        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
-        'Achromatopsia': Total colourblindness
-        'Achromatomaly': Total colourblindness
+
+        * 'Normal': Normal vision
+        * 'Protanopia': Red-green colorblindness (1% males)
+        * 'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        * 'Deuteranopia': Red-green colorblindness (1% males)
+        * 'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
+          0.4% females)
+        * 'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        * 'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        * 'Achromatopsia': Total colourblindness
+        * 'Achromatomaly': Total colourblindness
 
     :return:
     """
@@ -214,16 +215,17 @@ def colorblind_filter(color, colorblind_type="Deuteranomaly"):
     :param color: rgb colour tuple to convert
 
     :param colorblind_type: Type of colourblindness to simulate, can be:
-        'Normal': Normal vision
-        'Protanopia': Red-green colorblindness (1% males)
-        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
-        'Deuteranopia': Red-green colorblindness (1% males)
-        'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
-                         0.4% females)
-        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
-        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
-        'Achromatopsia': Total colourblindness
-        'Achromatomaly': Total colourblindness
+
+        * 'Normal': Normal vision
+        * 'Protanopia': Red-green colorblindness (1% males)
+        * 'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        * 'Deuteranopia': Red-green colorblindness (1% males)
+        * 'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
+          0.4% females)
+        * 'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        * 'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        * 'Achromatopsia': Total colourblindness
+        * 'Achromatomaly': Total colourblindness
 
     :return:
     """
@@ -237,22 +239,23 @@ def simulate_colors(colors, colorblind_type="Deuteranomaly", one_row=None, show=
     Simulate the appearance of colors with and without colourblindness.
 
     :param colors: A list of (r,g,b) colour tuples, with r, g andb floats between 0
-    and 1.
+        and 1.
 
     :param colorblind_type: Type of colourblindness to simulate, can be:
-        'Normal': Normal vision
-        'Protanopia': Red-green colorblindness (1% males)
-        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
-        'Deuteranopia': Red-green colorblindness (1% males)
-        'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
-                         0.4% females)
-        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
-        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
-        'Achromatopsia': Total colourblindness
-        'Achromatomaly': Total colourblindness
+
+        * 'Normal': Normal vision
+        * 'Protanopia': Red-green colorblindness (1% males)
+        * 'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        * 'Deuteranopia': Red-green colorblindness (1% males)
+        * 'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
+          0.4% females)
+        * 'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        * 'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        * 'Achromatopsia': Total colourblindness
+        * 'Achromatomaly': Total colourblindness
 
     :param one_row: If True display colours on one row, if False as a grid. If
-    one_row=None a grid is used when there are more than 8 colours.
+        one_row=None a grid is used when there are more than 8 colours.
 
     :param show: if True, calls ``plt.show()``.
 
@@ -292,6 +295,7 @@ def simulate_clusters(
     colourblindness.
 
     :param dataset: The dataset to display, the options are:
+
         * s1, s2, s3, s4: 15 clusters with increasing overlaps from s1 to s4
         * a1: 20 clusters
         * a2: 35 clusters
@@ -299,20 +303,21 @@ def simulate_clusters(
         * b1: 100 clusters
 
     :param colorblind_type: Type of colourblindness to simulate, can be:
-        'Normal': Normal vision
-        'Protanopia': Red-green colorblindness (1% males)
-        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
-        'Deuteranopia': Red-green colorblindness (1% males)
-        'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
-                         0.4% females)
-        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
-        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
-        'Achromatopsia': Total colourblindness
-        'Achromatomaly': Total colourblindness
+
+        * 'Normal': Normal vision
+        * 'Protanopia': Red-green colorblindness (1% males)
+        * 'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        * 'Deuteranopia': Red-green colorblindness (1% males)
+        * 'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
+          0.4% females)
+        * 'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        * 'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        * 'Achromatopsia': Total colourblindness
+        * 'Achromatomaly': Total colourblindness
 
     :param colorblind_distinct: If True generate colours to be as distinct as possible
-    for colorblind_type. Else generate colours that are as distinct as possible for
-    normal vision.
+        for colorblind_type. Else generate colours that are as distinct as possible for
+        normal vision.
 
     :param show: if True, calls ``plt.show()``.
 

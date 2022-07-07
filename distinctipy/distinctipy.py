@@ -85,7 +85,7 @@ def get_random_color(pastel_factor=0, rng=None):
     Generate a random rgb colour.
 
     :param pastel_factor: float between 0 and 1. If pastel_factor>0 paler colours will
-    be generated.
+        be generated.
 
     :param rng: A random integer seed or random.Random state.
         If unspecified the global random is used.
@@ -105,10 +105,11 @@ def color_distance(c1, c2):
     Inspired by: https://www.compuphase.com/cmetric.htm
 
     :param c1: (r,g,b) colour tuples. r,g and b are values between 0 and 1.
+
     :param c2: (r,g,b) colour tuples. r,g and b are values between 0 and 1.
 
     :return: distance: float representing visual distinction between c1 and c2.
-    Larger values = more distinct.
+        Larger values = more distinct.
     """
 
     r1, g1, b1 = c1
@@ -132,27 +133,30 @@ def distinct_color(
     Inspired by: https://gist.github.com/adewes/5884820
 
     :param exclude_colors: a list of (r,g,b) tuples. r,g,b are values between 0 and 1.
+
     :param pastel_factor: float between 0 and 1. If pastel_factor>0 paler colours will
-    be generated.
+        be generated.
+
     :param n_attempts: number of random colours to generate to find most distinct colour
 
     :param colorblind_type: Type of colourblindness to simulate, can be:
-        'Normal': Normal vision
-        'Protanopia': Red-green colorblindness (1% males)
-        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
-        'Deuteranopia': Red-green colorblindness (1% males)
-        'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
-                         0.4% females)
-        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
-        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
-        'Achromatopsia': Total colourblindness
-        'Achromatomaly': Total colourblindness
+
+        * 'Normal': Normal vision
+        * 'Protanopia': Red-green colorblindness (1% males)
+        * 'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+        * 'Deuteranopia': Red-green colorblindness (1% males)
+        * 'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
+          0.4% females)
+        * 'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+        * 'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+        * 'Achromatopsia': Total colourblindness
+        * 'Achromatomaly': Total colourblindness
 
     :param rng: A random integer seed or random.Random state.
         If unspecified the global random is used.
 
     :return: (r,g,b) color tuple of the generated colour with the largest minimum
-    color_distance to the colours in exclude_colors.
+        color_distance to the colours in exclude_colors.
     """
     rng = _ensure_rng(rng)
 
@@ -215,11 +219,12 @@ def get_text_color(background_color, threshold=0.6):
     Inspired by: https://stackoverflow.com/a/3943023
 
     :param background_color: The colour the text will be displayed on
+
     :param threshold: float between 0 and 1. With threshold close to 1 white text will
-    be chosen more often.
+        be chosen more often.
 
     :return: (0,0,0) if black text should be used or (1,1,1) if white text should be
-    used.
+        used.
     """
 
     r, g, b = background_color[0], background_color[1], background_color[2]
@@ -244,39 +249,40 @@ def get_colors(
 
     :param n_colors: How many colours to generate
 
-    :param exclude_colors: A pre-existing list of (r,g,b) colours that new colours
-    should be distinct from. If exclude_colours=None then exclude_colours will be set
-    to avoid white and black (exclude_colours=[(0,0,0), (1,1,1)]). (r,g,b) values should
-    be floats between 0 and 1.
+    :param exclude_colors: A list of (r,g,b) colours that new colours should be distinct
+        from. If exclude_colours=None then exclude_colours will be set to avoid white
+        and black (exclude_colours=[(0,0,0), (1,1,1)]). (r,g,b) values should be floats
+        between 0 and 1.
 
     :param return_excluded: If return_excluded=True then exclude_colors will be included
-    in the returned color list. Otherwise only the newly generated colors are returned
-    (default).
+        in the returned color list. Otherwise only the newly generated colors are
+        returned (default).
 
     :param pastel_factor: float between 0 and 1. If pastel_factor>0 paler colours will
-    be generated.
+        be generated.
 
     :param n_attempts: number of random colours to generated to find most distinct
-    colour.
+        colour.
 
-    :param colorblind_type: generate colours that are distinct with given type of
-    colourblindness. Can be:
-        'Normal': Normal vision
-        'Protanopia': Red-green colorblindness (1% males)
-        'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
-        'Deuteranopia': Red-green colorblindness (1% males)
-        'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
-                         0.4% females)
-        'Tritanopia': Blue-yellow colourblindness (<1% males and females)
-        'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
-        'Achromatopsia': Total colourblindness
-        'Achromatomaly': Total colourblindness
+    :param colorblind_type: Generate colours that are distinct with given type of
+        colourblindness. Can be:
+
+            * 'Normal': Normal vision
+            * 'Protanopia': Red-green colorblindness (1% males)
+            * 'Protanomaly': Red-green colorblindness (1% males, 0.01% females)
+            * 'Deuteranopia': Red-green colorblindness (1% males)
+            * 'Deuteranomaly': Red-green colorblindness (most common type: 6% males,
+            0.4% females)
+            * 'Tritanopia': Blue-yellow colourblindness (<1% males and females)
+            * 'Tritanomaly' Blue-yellow colourblindness (0.01% males and females)
+            * 'Achromatopsia': Total colourblindness
+            * 'Achromatomaly': Total colourblindness
 
     :param rng: A random integer seed or random.Random state.
         If unspecified the global random is used.
 
     :return: colors - A list of (r,g,b) colors that are visually distinct to each other
-     and to the colours in exclude_colors. (r,g,b) values are floats between 0 and 1.
+        and to the colours in exclude_colors. (r,g,b) values are floats between 0 and 1.
     """
     rng = _ensure_rng(rng)
 
@@ -308,7 +314,7 @@ def invert_colors(colors):
     inversion of each colour to the opposite corner on the r,g,b cube.
 
     :return: inverted_colors - A list of inverted (r,g,b) (r,g,b) values are floats
-    between 0 and 1.
+        between 0 and 1.
     """
     inverted_colors = []
 
@@ -335,24 +341,24 @@ def color_swatch(
     Display the colours defined in a list of colors.
 
     :param colors: List of (r,g,b) colour tuples to display. (r,g,b) should be floats
-    between 0 and 1.
+        between 0 and 1.
 
-    :param edgecolors: If None displayed colours have no outline.
-    Otherwise a list of (r,g,b) colours to use as outlines for each colour.
+    :param edgecolors: If None displayed colours have no outline. Otherwise a list of
+        (r,g,b) colours to use as outlines for each colour.
 
     :param show_text: If True writes the background colour's hex on top of it in black
-    or white, as appropriate.
+        or white, as appropriate.
 
     :param text_threshold: float between 0 and 1. With threshold close to 1 white text
-    will be chosen more often.
+        will be chosen more often.
 
     :param ax: Matplotlib axis to plot to. If ax is None plt.show() is run in function
-    call.
+        call.
 
     :param title: Add a title to the colour swatch.
 
     :param one_row: If True display colours on one row, if False as a grid. If
-    one_row=None a grid is used when there are more than 8 colours.
+        one_row=None a grid is used when there are more than 8 colours.
 
     :return:
     """
@@ -446,7 +452,9 @@ def color_swatch(
 def get_hex(color):
     """
     Returns hex of given color
+
     :param color: (r,g,b) color tuple. r,g,b are floats between 0 and 1.
+
     :return: hex str of color
     """
     import matplotlib.colors
@@ -456,8 +464,10 @@ def get_hex(color):
 
 def get_rgb256(color):
     """
-    Converts 0.0-1.0 rgb colour into 0-255 integer rgb colour
+    Converts 0.0-1.0 rgb colour into 0-255 integer rgb colour.
+
     :param color: (r,g,b) tuple with r,g,b floats between 0.0 and 1.0
+
     :return: (r,g,b) ints between 0 and 255
     """
     return (
@@ -472,7 +482,7 @@ def get_colormap(list_of_colors, name="distinctipy"):
     Converts a list of colors into a matplotlib colormap.
 
     :param list_of_colors: a list of (r,g,b) color tuples. (r,g,b) values should be
-    floats between 0 and 1.
+        floats between 0 and 1.
 
     :param name: name of the generated colormap
 
