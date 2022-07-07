@@ -69,7 +69,7 @@ pip install distinctipy[all]
 For example, to create and then display N = 36 visually distinct colours:
 
 ```python
-from distinctipy import distinctipy
+import distinctipy
 
 # number of colours to generate
 N = 36
