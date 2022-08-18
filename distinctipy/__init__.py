@@ -12,7 +12,7 @@ Example:
 
 name = "distinctipy"
 
-__version__ = "1.2.2"
+__version__ = "1.2.3"
 
 # Expose these module names and their internals in the top-level API
 __external__ = ["distinctipy"]
@@ -27,7 +27,7 @@ mkinit -m distinctipy --relative --black
 """
 
 # Everything after this point is autogenerate with mkinit
-from . import colorblind, colorsets, distinctipy, examples
+from . import colorblind, colorsets, distinctipy, examples, color
 from .distinctipy import (
     BLACK,
     BLUE,
