@@ -31,27 +31,28 @@ class Color:
         self._data_type = data_type
 
     @classmethod
-    def from_rgb8(rgb8: Tuple[int, int, int]) -> 'Color':
-        return Color(rgb8, color_order=ColorOrder.RGB, data_type=DataType.INT8)
+    def from_rgb8(cls, rgb8: Tuple[int, int, int]) -> 'Color':
+        return cls(rgb8, color_order=ColorOrder.RGB, data_type=DataType.INT8)
 
     @classmethod
-    def from_bgr8(bgr8: Tuple[int, int, int]) -> 'Color':
-        return Color(bgr8, color_order=ColorOrder.BGR, data_type=DataType.INT8)
+    def from_bgr8(cls, bgr8: Tuple[int, int, int]) -> 'Color':
+        return cls(bgr8, color_order=ColorOrder.BGR, data_type=DataType.INT8)
 
     @classmethod
-    def from_rgb_float(rgb_float: Tuple[float, float, float]) -> 'Color':
-        return Color(rgb_float, color_order=ColorOrder.RGB, data_type=DataType.FLOAT)
+    def from_rgb_float(cls, rgb_float: Tuple[float, float, float]) -> 'Color':
+        return cls(rgb_float, color_order=ColorOrder.RGB, data_type=DataType.FLOAT)
 
     @classmethod
-    def from_bgr_float(bgr_float: Tuple[float, float, float]) -> 'Color':
-        return Color(bgr_float, color_order=ColorOrder.BGR, data_type=DataType.FLOAT)
+    def from_bgr_float(cls, bgr_float: Tuple[float, float, float]) -> 'Color':
+        return cls(bgr_float, color_order=ColorOrder.BGR, data_type=DataType.FLOAT)
 
     @classmethod
-    def get_color(pastel_factor: float = 0, rng=None) -> 'Color':
-        return Color(get_random_color(pastel_factor, rng))
+    def get_color(cls, pastel_factor: float = 0, rng=None) -> 'Color':
+        return cls(get_random_color(pastel_factor, rng))
 
     @classmethod
-    def get_colors(n_colors,
+    def get_colors(cls,
+                   n_colors,
                    exclude_colors=None,
                    return_excluded=False,
                    pastel_factor=0,
@@ -67,7 +68,7 @@ class Color:
             colorblind_type,
             rng
         )
-        return [Color(color) for color in colors]
+        return [cls(color) for color in colors]
 
     def _reverse_color_order(self):
         """
