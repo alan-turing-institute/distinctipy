@@ -30,27 +30,27 @@ class Color:
         self._color_order = color_order
         self._data_type = data_type
 
-    @staticmethod
+    @classmethod
     def from_rgb8(rgb8: Tuple[int, int, int]) -> 'Color':
         return Color(rgb8, color_order=ColorOrder.RGB, data_type=DataType.INT8)
 
-    @staticmethod
+    @classmethod
     def from_bgr8(bgr8: Tuple[int, int, int]) -> 'Color':
         return Color(bgr8, color_order=ColorOrder.BGR, data_type=DataType.INT8)
 
-    @staticmethod
+    @classmethod
     def from_rgb_float(rgb_float: Tuple[float, float, float]) -> 'Color':
         return Color(rgb_float, color_order=ColorOrder.RGB, data_type=DataType.FLOAT)
 
-    @staticmethod
+    @classmethod
     def from_bgr_float(bgr_float: Tuple[float, float, float]) -> 'Color':
         return Color(bgr_float, color_order=ColorOrder.BGR, data_type=DataType.FLOAT)
 
-    @staticmethod
+    @classmethod
     def get_color(pastel_factor: float = 0, rng=None) -> 'Color':
         return Color(get_random_color(pastel_factor, rng))
 
-    @staticmethod
+    @classmethod
     def get_colors(n_colors,
                    exclude_colors=None,
                    return_excluded=False,
