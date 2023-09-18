@@ -25,8 +25,8 @@ jobs:
 
     - name: Code quality checks
       run: |
-        isort --check-only .
-        black --check .
+        isort --check-only --diff .
+        black --check --diff .
         flake8
 
   build_and_test:

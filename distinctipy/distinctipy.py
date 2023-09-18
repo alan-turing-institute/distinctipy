@@ -80,7 +80,7 @@ def _ensure_rng(rng):
     return rng
 
 
-def get_random_color(pastel_factor=0, rng=None):
+def get_random_color(pastel_factor=0.0, rng=None):
     """
     Generate a random rgb colour.
 
@@ -126,7 +126,7 @@ def color_distance(c1, c2):
 
 
 def distinct_color(
-    exclude_colors, pastel_factor=0, n_attempts=1000, colorblind_type=None, rng=None
+    exclude_colors, pastel_factor=0.0, n_attempts=1000, colorblind_type=None, rng=None
 ):
     """
     Generate a colour as distinct as possible from the colours defined in exclude_colors
@@ -239,7 +239,7 @@ def get_colors(
     n_colors,
     exclude_colors=None,
     return_excluded=False,
-    pastel_factor=0,
+    pastel_factor=0.0,
     n_attempts=1000,
     colorblind_type=None,
     rng=None,
