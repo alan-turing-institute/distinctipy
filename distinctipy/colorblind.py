@@ -24,7 +24,6 @@ def rgb2xyz(rgb):
 
 
 def xyz2rgb(xyz):
-
     x = xyz[0]
     y = xyz[1]
     z = xyz[2]
