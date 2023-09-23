@@ -307,6 +307,18 @@ def get_colors(
     else:
         return colors[len(exclude_colors) :]
 
+def invert_color(color):
+    """
+    Generates inverted colour a given colour, using a simple
+    inversion of colour to the opposite corner on the r,g,b cube.
+
+    :return: inverted_color - inverted colour (r,g,b) values are floats between 0 and 1.
+    """
+    return (
+        0.0 if color[0] > 0.5 else 1.0,
+        0.0 if color[1] > 0.5 else 1.0,
+        0.0 if color[2] > 0.5 else 1.0
+    )
 
 def invert_colors(colors):
     """
@@ -316,16 +328,7 @@ def invert_colors(colors):
     :return: inverted_colors - A list of inverted (r,g,b) (r,g,b) values are floats
         between 0 and 1.
     """
-    inverted_colors = []
-
-    for color in colors:
-        r = 0.0 if color[0] > 0.5 else 1.0
-        g = 0.0 if color[1] > 0.5 else 1.0
-        b = 0.0 if color[2] > 0.5 else 1.0
-
-        inverted_colors.append((r, g, b))
-
-    return inverted_colors
+    inverted_colors = [invert_color(color) for color in colors]
 
 
 def color_swatch(

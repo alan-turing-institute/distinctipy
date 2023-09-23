@@ -27,7 +27,7 @@ mkinit -m distinctipy --relative --black
 """
 
 # Everything after this point is autogenerate with mkinit
-from . import colorblind, colorsets, distinctipy, examples
+from . import colorblind, colorsets, distinctipy, examples, color
 from .distinctipy import (
     BLACK,
     BLUE,
