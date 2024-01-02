@@ -67,7 +67,7 @@ jobs:
       if: matrix.depsize == 'full' 
       shell: bash
       run: |
-        pip install .[all,tests]
+        pip install .[extras,tests]
 
     - name: Install minimal dependencies
       if: matrix.depsize == 'minimal' 
