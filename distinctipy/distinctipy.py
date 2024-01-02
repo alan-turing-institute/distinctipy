@@ -422,6 +422,7 @@ def color_swatch(
                 matplotlib.colors.rgb2hex(color),
                 fontsize=fontsize,
                 ha="center",
+                va="center",
                 color=get_text_color(color, threshold=text_threshold),
             )
 
