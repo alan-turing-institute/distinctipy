@@ -39,8 +39,10 @@ colours (e.g. with `distinctipy.color_swatch`) or examples you will need `matplo
 with the optional flag:
 
 ```bash
-python -m pip install distinctipy[optional]
+python -m pip install distinctipy[extras]
 ```
+
+⚠️ Warning ⚠️ Previous versions of distinctipy (before 1.3) used `[optional]` instead of `[extras]`.
 
 Or install them separately:
 
@@ -48,10 +50,10 @@ Or install them separately:
 python -m pip install matplotlib pandas
 ```
 
-For developers, to install the stack needed to run tests, generate docs etc. use the `[all]` flag:
+For developers, to install the stack needed to run tests, generate docs etc. use:
 
 ```bash
-python -m pip install distinctipy[all]
+python -m pip install distinctipy[extras,tests,docs]
 ```
 
 ## Usage and Examples

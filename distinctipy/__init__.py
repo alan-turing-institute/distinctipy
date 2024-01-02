@@ -9,10 +9,10 @@ Example:
     [(0, 1, 0), (1, 0, 1), (0, 0.5, 1), (1, 0.5, 0), (0.5, 0.75, 0.5)]
 """
 # flake8: noqa
+from importlib.metadata import version
 
 name = "distinctipy"
-
-__version__ = "1.3.1"
+__version__ = version(__name__)
 
 # Expose these module names and their internals in the top-level API
 __external__ = ["distinctipy"]
