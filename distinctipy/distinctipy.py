@@ -361,6 +361,9 @@ def color_swatch(
     :param one_row: If True display colours on one row, if False as a grid. If
         one_row=None a grid is used when there are more than 8 colours.
 
+    :param fontsize: Fontsize of text on colour swatch. If None fontsize will attempt to
+        be set to an appropriate size based on the number of colours.
+
     :return:
     """
     import matplotlib.colors
