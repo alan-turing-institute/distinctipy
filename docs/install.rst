@@ -21,7 +21,8 @@ to keep its footprint as small as possible. If you wish to view colours (e.g. wi
 or examples you will need `matplotlib` and `pandas` installed. To do this, either install `distinctipy` with the
 optional flag::
     
-    pip install 'distinctipy[optional]'
+    pip install 'distinctipy[extras]'
+
 
 Or install them separately::
 
