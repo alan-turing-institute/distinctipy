@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.8
+        python-version: 3.11
 
     - name: Install dependencies
       run: |
@@ -39,21 +39,20 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
         arch: [auto]
         python-version: 
-          - '3.7'
-          - '3.8'
           - '3.9'
           - '3.10'
-          #- 'pypy-3.7'  # see https://github.com/pandas-dev/pandas/issues/44253
+          - '3.11'
+          - '3.12'
         depsize: 
           - 'minimal'
           - 'full'
 
     steps:
     - name: Checkout source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -87,11 +86,11 @@ jobs:
         mv .coverage "../.coverage.${CUSTOM_RUNNER_ID}"
         cd ..
 
-    - name: Set up Python 3.8 to combine coverage Linux
+    - name: Set up Python to combine coverage Linux
       if: runner.os == 'Linux'
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.8
+        python-version: 3.11
 
     - name: Combine coverage Linux
       if: runner.os == 'Linux'
@@ -103,7 +102,7 @@ jobs:
         find . -name coverage.xml
 
     - name: Codecov Upload
-      uses: codecov/codecov-action@v2.1.0
+      uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./tests/coverage.xml
+        files: ./tests/coverage.xml

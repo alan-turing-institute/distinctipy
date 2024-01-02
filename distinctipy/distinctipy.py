@@ -336,6 +336,7 @@ def color_swatch(
     ax=None,
     title=None,
     one_row=None,
+    fontsize=None,
 ):
     """
     Display the colours defined in a list of colors.
@@ -360,6 +361,9 @@ def color_swatch(
     :param one_row: If True display colours on one row, if False as a grid. If
         one_row=None a grid is used when there are more than 8 colours.
 
+    :param fontsize: Fontsize of text on colour swatch. If None fontsize will attempt to
+        be set to an appropriate size based on the number of colours.
+
     :return:
     """
     import matplotlib.colors
@@ -376,6 +380,9 @@ def color_swatch(
         n_grid = len(colors)
     else:
         n_grid = math.ceil(np.sqrt(len(colors)))
+
+    if fontsize is None:
+        fontsize = 60 / n_grid
 
     width = 1
     height = 1
@@ -413,7 +420,7 @@ def color_swatch(
                 x + (width / 2),
                 y + (height / 2),
                 matplotlib.colors.rgb2hex(color),
-                fontsize=60 / np.sqrt(len(colors)),
+                fontsize=fontsize,
                 ha="center",
                 color=get_text_color(color, threshold=text_threshold),
             )
