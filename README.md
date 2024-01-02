@@ -42,6 +42,8 @@ with the optional flag:
 python -m pip install distinctipy[extras]
 ```
 
+⚠️ Warning ⚠️ Previous versions of distinctipy (before 1.3) used `[optional]` instead of `[extras]`.
+
 Or install them separately:
 
 ```bash
