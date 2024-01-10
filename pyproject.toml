@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "distinctipy"
-version = "1.3.3"
+version = "1.3.4"
 authors = [
     {name = "Jack Roberts", email = "jroberts@turing.ac.uk"},
 ]
 description = "A lightweight package for generating visually distinct colours."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 keywords = ["color", "colour", "palette", "colormap", "colorblind", "colourblind"]
 license = {file = "LICENSE"}
 classifiers = [
