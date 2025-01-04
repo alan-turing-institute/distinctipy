@@ -250,8 +250,8 @@ def get_colors(
     :param n_colors: How many colours to generate
 
     :param exclude_colors: A list of (r,g,b) colours that new colours should be distinct
-        from. If exclude_colours=None then exclude_colours will be set to avoid white
-        and black (exclude_colours=[(0,0,0), (1,1,1)]). (r,g,b) values should be floats
+        from. If exclude_colors=None then exclude_colors will be set to avoid white
+        and black (exclude_colors=[(0,0,0), (1,1,1)]). (r,g,b) values should be floats
         between 0 and 1.
 
     :param return_excluded: If return_excluded=True then exclude_colors will be included
